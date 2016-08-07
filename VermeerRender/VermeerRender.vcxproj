@@ -146,6 +146,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="VermeerRender.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Vector3f.hpp" />
+    <ClInclude Include="VermeerRender.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
