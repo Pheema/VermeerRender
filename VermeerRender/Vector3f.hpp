@@ -28,51 +28,90 @@ namespace VermeerRender
             x /= norm; y /= norm; z /= norm;
         }
 
+        #pragma region Addition
+
         // Vector3f + Vector3f
         inline Vector3f
-        operator+(Vector3f& v) const { return Vector3f(x + v.x, y + v.y, z + v.z); }
+        operator+(const Vector3f& v) const { return Vector3f(x + v.x, y + v.y, z + v.z); }
+        
+        // Vector3f += Vector3f
+        inline Vector3f&
+        operator+=(const Vector3f& v)
+        {
+            x += v.x; y += v.y; z += v.z;
+            return *this;
+        }
+
+        #pragma endregion
+
+        #pragma region Substracion
         
         // Vector3f - Vector3f
         inline Vector3f
         operator-(Vector3f& v) const { return Vector3f(x - v.x, y - v.y, z - v.z); }
 
+        // Vector3f -= Vector3f
+        inline Vector3f&
+        operator-=(const Vector3f& v)
+        {
+            x -= v.x; y -= v.y; z -= v.z;
+            return *this;
+        }
+
+        // -Vector3f
+        inline Vector3f
+        operator-() const { return Vector3f(-x, -y, -z); }
+        #pragma endregion
+        
+        #pragma region Multiplication
+
         // Vector3f * Vector3f (要素毎)
         inline Vector3f
-        operator*(Vector3f& v) const { return Vector3f(x * v.x, y * v.y, z * v.z); }
+        operator*(const Vector3f& v) const { return Vector3f(x * v.x, y * v.y, z * v.z); }
 
-        // Vector3f / Vector3f (要素毎)
-        inline Vector3f
-        operator/(Vector3f& v) const { return Vector3f(x / v.x, y / v.y, z / v.z); }
-
+        // Vector3f *= Vector3f
+        inline Vector3f&
+        operator*=(const Vector3f& v) { x *= v.x; y *= v.y; z *= v.z; return *this; }
+        
         // Vector3f * number
         template <typename T>
         inline Vector3f
-        operator*(T a) const { return Vector3f(x * a, y * a, z * a); }
+        operator*(const T a) const { return Vector3f(x * a, y * a, z * a); }
 
         // number * Vector3f
         template<typename T>
         friend inline
-        Vector3f operator*(T a, Vector3f& v);
+        Vector3f operator*(const T a, Vector3f& v);
 
-        static inline Vector3f Zero()
+        #pragma  endregion
+
+        #pragma region Division
+
+        // Vector3f / Vector3f (要素毎)
+        inline Vector3f
+        operator/(const Vector3f& v) const { return Vector3f(x / v.x, y / v.y, z / v.z); }
+
+        // Vector3f /= Vector3f
+        inline Vector3f&
+        operator/=(const Vector3f& v)
         {
-            return Vector3f(0, 0, 0);
+            x /= v.x; y /= v.y; z /= v.z;
+            return *this;
         }
 
-        static inline Vector3f Right()
-        {
-            return Vector3f(1.0f, 0.0f, 0.0f);
-        }
+        #pragma endregion
+        
+        static inline Vector3f
+        Zero() { return Vector3f(0, 0, 0); }
 
-        static inline Vector3f Up()
-        {
-            return Vector3f(0.0f, 1.0f, 0.0f);
-        }
+        static inline Vector3f
+        Right() { return Vector3f(1.0f, 0.0f, 0.0f); }
 
-        static inline Vector3f Forward()
-        {
-            return Vector3f(0.0f, 0.0f, -1.0f);
-        }
+        static inline Vector3f
+        Up() { return Vector3f(0.0f, 1.0f, 0.0f); }
+
+        static inline Vector3f
+        Forward() { return Vector3f(0.0f, 0.0f, -1.0f); }
 
     private:
         

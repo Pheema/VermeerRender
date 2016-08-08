@@ -151,7 +151,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.hpp" />
+    <ClInclude Include="GeometricObject.hpp" />
+    <ClInclude Include="HitInfo.hpp" />
     <ClInclude Include="Ray.hpp" />
+    <ClInclude Include="Sphere.hpp" />
     <ClInclude Include="Vector3f.hpp" />
     <ClInclude Include="VermeerRender.h" />
   </ItemGroup>
