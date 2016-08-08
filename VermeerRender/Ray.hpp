@@ -23,7 +23,7 @@ namespace VermeerRender
         unsigned int bounce;	// レイが反射した回数
 
         Ray() {};
-        Ray(const Vector3f& o, const Vector3f& d, float ior = 1.0f, unsigned int bounce = 0)
-            : o(o), dir(dir), ior(ior), bounce(bounce) {};
+        Ray(const Vector3f& o, const Vector3f& d, RayTypes rayType, float ior = 1.0f, unsigned int bounce = 0)
+            : o(o), dir(dir.Normalized()), ior(ior), bounce(bounce) {};
     };
 }

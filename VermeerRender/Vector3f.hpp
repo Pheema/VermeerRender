@@ -8,9 +8,25 @@ namespace VermeerRender
     {
     public:
         float x, y, z;
+        
         Vector3f() {}
         explicit Vector3f(float a) : x(a), y(a), z(a) {}
         Vector3f(float x, float y, float z) : x(x), y(y), z(z) {}
+
+        // 正規化されたベクトルを返す
+        Vector3f
+        Normalized() const
+        {
+            float norm = sqrt(x * x + y * y + z * z);
+            return Vector3f(x / norm, y / norm, z / norm);
+        }
+
+        // ベクトルを正規化する
+        void Normalize()
+        {
+            float norm = sqrt(x * x + y * y + z * z);
+            x /= norm; y /= norm; z /= norm;
+        }
 
         // Vector3f + Vector3f
         inline Vector3f
@@ -38,21 +54,41 @@ namespace VermeerRender
         friend inline
         Vector3f operator*(T a, Vector3f& v);
 
+        static inline Vector3f Zero()
+        {
+            return Vector3f(0, 0, 0);
+        }
+
+        static inline Vector3f Right()
+        {
+            return Vector3f(1.0f, 0.0f, 0.0f);
+        }
+
+        static inline Vector3f Up()
+        {
+            return Vector3f(0.0f, 1.0f, 0.0f);
+        }
+
+        static inline Vector3f Forward()
+        {
+            return Vector3f(0.0f, 0.0f, -1.0f);
+        }
+
     private:
         
     };
 
     // number * Vector3f
     template<typename T>
-    Vector3f
+    static inline Vector3f
     operator*(T a, Vector3f& v) { return v * a };
 
     // 内積
-    float
+    static inline float
     Dot(const Vector3f& v1, const Vector3f& v2) { return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z; }
 
     // 外積
-    Vector3f
+    static inline Vector3f
     Cross(const Vector3f& v1, const Vector3f& v2)
     {
         Vector3f v;
@@ -62,7 +98,7 @@ namespace VermeerRender
         return v;
     }
 
-    std::ostream&
+    static inline std::ostream&
     operator<<(std::ostream& os, const Vector3f& v)
     {
         os << "(" << v.x << ", " << v.y << ", " << v.z << ")";
