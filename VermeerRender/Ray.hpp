@@ -20,10 +20,10 @@ namespace VermeerRender
         Vector3f dir;			// Ray direction
 
         float ior;				// レイが飛んでいるマテリアルの屈折率
-        unsigned int bounce;	// レイが反射した回数
+        unsigned bounce;	// レイが反射した回数
 
         Ray() {};
-        Ray(const Vector3f& o, const Vector3f& d, RayTypes rayType, float ior = 1.0f, unsigned int bounce = 0)
+        Ray(const Vector3f& o, const Vector3f& d, RayTypes rayType, float ior = 1.0f, unsigned bounce = 0)
             : o(o), dir(dir.Normalized()), ior(ior), bounce(bounce) {};
     };
 }

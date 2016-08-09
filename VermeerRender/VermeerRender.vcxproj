@@ -157,6 +157,7 @@
     <ClInclude Include="Sphere.hpp" />
     <ClInclude Include="Vector3f.hpp" />
     <ClInclude Include="VermeerRender.h" />
+    <ClInclude Include="XorShift128.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

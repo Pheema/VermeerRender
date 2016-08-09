@@ -1,14 +1,13 @@
 ﻿#include <iostream>
-#include "Vector3f.hpp"
+#include "Camera.hpp"
 using namespace VermeerRender;
 
 int main()
 {
     std::cout << "This is the raytracer for RayTracing Camp 4!?." << std::endl;
-    Vector3f v1(1, 2, 3);
-    Vector3f v2(4, 5, 6);
+    Camera mainCamera(Vector3f::Zero(), Vector3f::Forward());
 
-    std::cout << (v1 /= v2) << std::endl;
+    std::cout << mainCamera.Right() << std::endl;
 
     return 0;
 }
