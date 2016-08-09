@@ -155,6 +155,7 @@
     <ClInclude Include="HitInfo.hpp" />
     <ClInclude Include="Ray.hpp" />
     <ClInclude Include="Sphere.hpp" />
+    <ClInclude Include="Texture2D.hpp" />
     <ClInclude Include="Vector3f.hpp" />
     <ClInclude Include="VermeerRender.h" />
     <ClInclude Include="XorShift128.hpp" />
