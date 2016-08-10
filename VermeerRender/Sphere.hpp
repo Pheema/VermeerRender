@@ -3,20 +3,23 @@
 #include "GeometricObject.hpp"
 #include "Ray.hpp"
 #include "Vector3f.hpp"
+#include "HitInfo.hpp"
 #include <algorithm>
 #include <cmath>
 
 namespace VermeerRender
 {
-    class Sphere : GeometricObject
+    class Sphere : public GeometricObject
     {
     public:
         Vector3f o;
         float r;
-
-    protected:
+        
+        Sphere() {}
+        Sphere(const Vector3f& o, float r) : o(o), r(r) {}
+    
         virtual bool
-        Intersect(const Ray& ray, HitInfo* const hitinfo) final
+        Intersect(const Ray& ray, HitInfo* hitInfo) override
         {
             float a = Dot(ray.dir, ray.dir);
             float b_2 = Dot(ray.dir, ray.o - o);
@@ -29,18 +32,18 @@ namespace VermeerRender
 
             if (l1 < 0 && l2 < 0) return false;
             float l = std::min(std::max(l1, 0.0f), std::max(l2, 0.0f));
-
-            hitinfo->length = l;
-            hitinfo->point = ray.o + ray.dir * l;
+            
+            hitInfo->length = l;
+            hitInfo->point = ray.o + ray.dir * l;
 
             // 球の外側からの衝突
             if (abs(l - l1) < FLT_EPSILON)
             {
-                hitinfo->normal = (hitinfo->point - o).Normalized();
+                hitInfo->normal = (hitInfo->point - o).Normalized();
             }
             else
             {
-                hitinfo->normal = -(hitinfo->point - o).Normalized();
+                hitInfo->normal = -(hitInfo->point - o).Normalized();
             }
 
             return true;

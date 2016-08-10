@@ -10,7 +10,6 @@ namespace VermeerRender
         m_up = Cross(m_right, m_forward);
     }
 
-
     void
     Camera::LookAt(const Vector3f& target)
     {
@@ -23,7 +22,7 @@ namespace VermeerRender
         const float aspect = static_cast<float>(imageWidth) / imageHeight;
         const float u = (i + 0.5f) / imageWidth - 0.5f;
         const float v = (j + 0.5f) / imageHeight - 0.5f;
-
+        
         Vector3f rayDir =
             m_right * u * m_sensorHeight * aspect +
             m_up * v * m_sensorHeight +

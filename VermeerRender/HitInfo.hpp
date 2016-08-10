@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "Vector3f.hpp"
+#include "GeometricObject.hpp"
 
 namespace VermeerRender
 {
@@ -10,6 +11,7 @@ namespace VermeerRender
         HitInfo() {};
         Vector3f point;
         Vector3f normal;
-        float length;
+        float length = INFINITY;
+        GeometricObject* hitObjPtr;
     };
 }

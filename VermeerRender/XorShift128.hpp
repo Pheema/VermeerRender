@@ -13,7 +13,7 @@ namespace VermeerRender
         static constexpr unsigned max() { return UINT_MAX; }
         unsigned operator()() { return random(); }
         XorShift128() {};
-        XorShift128(unsigned seed) : w(seed) {};
+        explicit XorShift128(unsigned seed) : w(seed) {};
 
         unsigned
         random()

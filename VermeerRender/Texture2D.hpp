@@ -1,9 +1,10 @@
 #pragma once
 
-#include "lodepng.h"
-#include "Vector3f.hpp"
 #include <algorithm>
 #include <vector>
+#include "lodepng.h"
+#include "Vector3f.hpp"
+
 
 namespace
 {
@@ -19,13 +20,9 @@ namespace
 
 namespace VermeerRender
 {
-    using Color3f = Vector3f;
-
     class Texture2D
     {
     public:
-        Texture2D() {}
-
         Texture2D(unsigned width, unsigned height, const Color3f& color = Color3f::Zero())
             : m_width(width), m_height(height)
         {
@@ -43,6 +40,9 @@ namespace VermeerRender
         {
             return pixels[i + j * m_width];
         }
+
+        unsigned Width() const { return m_width; }
+        unsigned Height() const { return m_height; }
 
         void
         SetPixel(unsigned i, unsigned j, const Color3f& color)

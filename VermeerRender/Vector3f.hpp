@@ -1,6 +1,9 @@
 ﻿#pragma once
 
 #include <iostream>
+#include <type_traits>
+
+extern void* enabler;
 
 namespace VermeerRender
 {
@@ -80,8 +83,9 @@ namespace VermeerRender
 
         // number * Vector3f
         template<typename T>
+        typename std::enable_if<std::is_arithmetic<T>::value, Vector3f>::type
         friend inline
-        Vector3f operator*(const T a, Vector3f& v);
+        operator*(const T a, Vector3f& v);
 
         #pragma  endregion
 
@@ -101,15 +105,23 @@ namespace VermeerRender
 
         #pragma endregion
         
+        // Zero vector (0, 0, 0)
         static inline Vector3f
         Zero() { return Vector3f(0, 0, 0); }
 
+        // vector (1, 1, 1)
+        static inline Vector3f
+        One() { return Vector3f(1.0, 1.0f, 1.0f); }
+        
+        // Right vector (1, 0, 0)
         static inline Vector3f
         Right() { return Vector3f(1.0f, 0.0f, 0.0f); }
 
+        // Up vector (0, 1, 0)
         static inline Vector3f
         Up() { return Vector3f(0.0f, 1.0f, 0.0f); }
 
+        // Forward vector (0, 0, -1)
         static inline Vector3f
         Forward() { return Vector3f(0.0f, 0.0f, -1.0f); }
 
@@ -119,8 +131,9 @@ namespace VermeerRender
 
     // number * Vector3f
     template<typename T>
-    static inline Vector3f
-    operator*(T a, Vector3f& v) { return v * a };
+    typename std::enable_if<std::is_arithmetic<T>::value, Vector3f>::type
+    static inline
+    operator*(T a, Vector3f& v) { return v * a; }
 
     // 内積
     static inline float
@@ -143,4 +156,6 @@ namespace VermeerRender
         os << "(" << v.x << ", " << v.y << ", " << v.z << ")";
         return os;
     }
+    
+    using Color3f = Vector3f;
 }
