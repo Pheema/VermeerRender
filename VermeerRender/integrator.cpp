@@ -20,16 +20,21 @@ namespace VermeerRender
 			HitInfo h;
 			if (scene.Intersect(*rayPtr, &h))
 			{
-				const float prob = rayPtr->recurrenceProb;
 				pixelColor *= (h.hitObjPtr->GetMaterial()).Radiance(rayPtr, h);
 				if (uniDist(xor) < rayPtr->recurrenceProb)
 				{
-					// std::cout << rayPtr->recurrenceProb << std::endl;
+					//std::cout << rayPtr->recurrenceProb << std::endl;
 					pixelColor /= rayPtr->recurrenceProb;
 				}
 				else
 				{
+					pixelColor = Color3f::Zero();
 					break;
+				}
+
+				if (rayPtr->bounce > 16)
+				{
+					rayPtr->recurrenceProb *= 0.001f;
 				}
 				
 				const std::type_info& hitMatType = typeid(h.hitObjPtr->GetMaterial());

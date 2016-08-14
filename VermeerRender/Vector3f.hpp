@@ -1,5 +1,6 @@
 ﻿#pragma once
 
+#include <algorithm>s
 #include <iostream>
 #include <type_traits>
 
@@ -116,6 +117,10 @@ namespace VermeerRender
 
         #pragma endregion
         
+		// Return the max component of the vector
+		inline float 
+		Max() { return std::max(x, std::max(y, z)); }
+
 		// Return squared length of the vector
 		inline float
 		SqLength() { return x * x + y * y + z * z; }

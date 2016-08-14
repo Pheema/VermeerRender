@@ -18,20 +18,41 @@ namespace VermeerRender
 	VermeerRender::Render()
 	{
 		std::cout << "This is the raytracer for RayTracing Camp 4!?." << std::endl;
-		Camera mainCamera(Vector3f(0, 1.0f, 10.0f), Vector3f::Forward());
-		Sphere sphere(Vector3f::Up(), 1.0f);
-		Sphere sphereLight(Vector3f(1.0f, 3.0f, 3.0f), 1.0f);
-		Sphere floor(-Vector3f::Up() * 100.0f, 100.0f);
-		Lambert lambertMat(Color3f(0.9f, 0.5f, 0.5f));
+
+		const float largeR = 10.0f;
+		Camera mainCamera(Vector3f(0, 0.0f, 10.0f), Vector3f::Forward());
+
+		Sphere ceil(Vector3f::Up() * (largeR + 1.0f) , largeR);
+		Sphere floor(-Vector3f::Up() * (largeR + 1.0f), largeR);
+		Sphere leftWall(-Vector3f::Right() * (largeR + 1.0f), largeR);
+		Sphere rightWall(Vector3f::Right() * (largeR + 1.0f), largeR);
+		Sphere backWall(Vector3f::Forward() * (largeR + 1.0f), largeR);
+
+		Sphere sphereLight(Vector3f(0.0f, 1.0f, 0.0f), 0.6f);
+		
+		Lambert lambertWhite(Color3f(0.9f, 0.9f, 0.9f));
+		Lambert lambertRed(Color3f(0.9f, 0.0f, 0.0f));
+		Lambert lambertGreen(Color3f(0.0f, 0.9f, 0.0f));
+		
 		Emission emissionMat(Color3f::One());
-		sphere.SetMaterial(lambertMat);
-		floor.SetMaterial(lambertMat);
+
+		ceil.SetMaterial(lambertWhite);
+		floor.SetMaterial(lambertWhite);
+		backWall.SetMaterial(lambertWhite);
+		leftWall.SetMaterial(lambertGreen);
+		rightWall.SetMaterial(lambertRed);
+
+
 		sphereLight.SetMaterial(emissionMat);
 		// Texture2D m_renderTexture(256, 256);
 
 		Scene scene;
-		scene.AddGeoObject(sphere);
+		scene.AddGeoObject(ceil);
 		scene.AddGeoObject(floor);
+		scene.AddGeoObject(backWall);
+		scene.AddGeoObject(leftWall);
+		scene.AddGeoObject(rightWall);
+
 		scene.AddGeoObject(sphereLight);
 		scene.SetBGColor(Color3f(0.2f, 0.2f, 0.2f));
 
@@ -44,12 +65,12 @@ namespace VermeerRender
 			for (int i = 0; i < m_renderTexture.Width(); i++)
 			{
 				Color3f pixelColorSum = Color3f::Zero();
-				for (int smp = 0; smp < 1000; ++smp)
+				for (int smp = 0; smp < 64; ++smp)
 				{
 					Ray ray = mainCamera.PixelToRay(i, j, m_renderTexture.Width(), m_renderTexture.Height());
 					pixelColorSum += Integrator::PathTracing(scene, &ray);
 				}
-				m_renderTexture.SetPixel(i, j, pixelColorSum / 1000.0f);
+				m_renderTexture.SetPixel(i, j, pixelColorSum / 64.0f);
 			}
 			std::cout << "[" << j << "/" << m_renderTexture.Height() << "]\n";
 		}

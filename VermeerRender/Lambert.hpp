@@ -35,7 +35,7 @@ namespace VermeerRender
             rayPtr->o = hitInfo.point;
             rayPtr->dir = reflectionRayDir;
             rayPtr->bounce++;
-			rayPtr->recurrenceProb *= m_matColor.Length();
+			rayPtr->recurrenceProb *= m_matColor.Max();
 
             return m_matColor;
         }
