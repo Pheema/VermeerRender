@@ -3,6 +3,7 @@
 #include <vector>
 #include "Camera.hpp"
 #include "GeometricObject.hpp"
+#include "Texture2D.hpp"
 #include "Vector3f.hpp"
 
 namespace VermeerRender
@@ -25,9 +26,19 @@ namespace VermeerRender
         }
 
 		const Color3f&
-		GetBGColor() const
+		GetBGColor(const Vector3f& dir) const
 		{
+			if (m_bgTexture != nullptr)
+			{
+				return m_bgTexture->GetPixel(dir);
+			}
 			return m_bgColor;
+		}
+
+		void
+		SetBGTexture(const Texture2D& bgTex)
+		{
+			m_bgTexture = &bgTex;
 		}
 
         void
@@ -64,5 +75,6 @@ namespace VermeerRender
         std::vector<GeometricObject*> m_geoObjectPtrs;
         Camera* m_cameraPtr;
         Color3f m_bgColor = Color3f::Zero();
+		const Texture2D* m_bgTexture = nullptr;
     };
 }

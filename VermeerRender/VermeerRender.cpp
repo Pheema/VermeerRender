@@ -43,19 +43,19 @@ namespace VermeerRender
 		rightWall.SetMaterial(lambertRed);
 
 
-		sphereLight.SetMaterial(emissionMat);
-		// Texture2D m_renderTexture(256, 256);
+		sphereLight.SetMaterial(lambertWhite);
+		Texture2D bgTex("./Assets/bgTex.png");
 
 		Scene scene;
-		scene.AddGeoObject(ceil);
+		// scene.AddGeoObject(ceil);
 		scene.AddGeoObject(floor);
-		scene.AddGeoObject(backWall);
+		/*scene.AddGeoObject(backWall);
 		scene.AddGeoObject(leftWall);
-		scene.AddGeoObject(rightWall);
+		scene.AddGeoObject(rightWall);*/
 
 		scene.AddGeoObject(sphereLight);
-		scene.SetBGColor(Color3f(0.2f, 0.2f, 0.2f));
-
+		// scene.SetBGColor(Color3f(0.2f, 0.2f, 0.2f));
+		scene.SetBGTexture(bgTex);
 
 		const auto startTime = std::chrono::system_clock::now();
 
@@ -65,12 +65,13 @@ namespace VermeerRender
 			for (int i = 0; i < m_renderTexture.Width(); i++)
 			{
 				Color3f pixelColorSum = Color3f::Zero();
-				for (int smp = 0; smp < 64; ++smp)
+				const int spp = 256;
+				for (int smp = 0; smp < spp; ++smp)
 				{
 					Ray ray = mainCamera.PixelToRay(i, j, m_renderTexture.Width(), m_renderTexture.Height());
 					pixelColorSum += Integrator::PathTracing(scene, &ray);
 				}
-				m_renderTexture.SetPixel(i, j, pixelColorSum / 64.0f);
+				m_renderTexture.SetPixel(i, j, pixelColorSum / spp);
 			}
 			std::cout << "[" << j << "/" << m_renderTexture.Height() << "]\n";
 		}

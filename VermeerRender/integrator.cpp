@@ -45,7 +45,7 @@ namespace VermeerRender
 			}
 			else
 			{
-				pixelColor *= scene.GetBGColor();
+				pixelColor *= scene.GetBGColor(rayPtr->dir);
 				break;
 			}
 		}
