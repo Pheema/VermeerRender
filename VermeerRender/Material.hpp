@@ -6,8 +6,8 @@
 
 namespace VermeerRender
 {
-    class Ray;
-    class HitInfo;
+    // class Ray;
+    //class HitInfo;
     // マテリアルのアブストラクトクラス
     class Material
     {

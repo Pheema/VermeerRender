@@ -19,7 +19,7 @@ namespace VermeerRender
         Sphere(const Vector3f& o, float r) : o(o), r(r) {}
     
         virtual bool
-        Intersect(const Ray& ray, HitInfo* hitInfo) override
+        Intersect(const Ray& ray, HitInfo* const hitInfo) override
         {
             float a = Dot(ray.dir, ray.dir);
             float b_2 = Dot(ray.dir, ray.o - o);
@@ -45,6 +45,8 @@ namespace VermeerRender
             {
                 hitInfo->normal = -(hitInfo->point - o).Normalized();
             }
+
+			hitInfo->hitObjPtr = this;
 
             return true;
         }

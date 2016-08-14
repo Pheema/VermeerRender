@@ -12,12 +12,12 @@ namespace VermeerRender
     class Lambert : public Material
     {
     public:
-        Lambert(const Vector3f& color) : m_matColor(color) {}
+        Lambert(const Color3f& color) : m_matColor(color) {}
 
         virtual Color3f
         Radiance(Ray* const rayPtr, const HitInfo& hitInfo) override
         {
-            static XorShift128 xor;
+			static XorShift128 xor;
             std::uniform_real_distribution<float> uniDist(0.0f, 1.0f);
             
             Vector3f v = hitInfo.normal;
@@ -27,14 +27,15 @@ namespace VermeerRender
             float phi = 2.0f * M_PI * uniDist(xor);
             float theta = acos(sqrt(uniDist(xor)));
 
-            Vector3f outRayDir =
+            Vector3f reflectionRayDir =
                 u * sin(theta) * cos(phi) +
                 v * cos(theta) +
                 w * sin(theta) * sin(phi);
 
             rayPtr->o = hitInfo.point;
-            rayPtr->dir = outRayDir;
+            rayPtr->dir = reflectionRayDir;
             rayPtr->bounce++;
+			rayPtr->recurrenceProb *= m_matColor.Length();
 
             return m_matColor;
         }

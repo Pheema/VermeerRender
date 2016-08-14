@@ -1,11 +1,11 @@
 ﻿#pragma once
 
-#include "HitInfo.hpp"
-#include "Material.hpp"
-#include "Ray.hpp"
-
 namespace VermeerRender
 {
+	class Ray;
+	class HitInfo;
+	class Material;
+
     // 幾何オブジェクトのアブストラクトクラス
     class GeometricObject
     {
@@ -15,6 +15,12 @@ namespace VermeerRender
         {
             m_materialPtr = &material;
         }
+
+		Material&
+		GetMaterial()
+		{
+			return *m_materialPtr;
+		}
 
         virtual bool Intersect(const Ray& ray, HitInfo* const hitinfo) = 0;
 

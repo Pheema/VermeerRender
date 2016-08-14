@@ -25,7 +25,7 @@ namespace VermeerRender
         
         Vector3f rayDir =
             m_right * u * m_sensorHeight * aspect +
-            m_up * v * m_sensorHeight +
+            -m_up * v * m_sensorHeight +
             m_forward * m_focalLength;
         rayDir.Normalize();
 

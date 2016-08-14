@@ -9,9 +9,10 @@ namespace VermeerRender
     {
     public:
         HitInfo() {};
+
         Vector3f point;
         Vector3f normal;
         float length = INFINITY;
-        GeometricObject* hitObjPtr;
+        GeometricObject* hitObjPtr = nullptr;
     };
 }

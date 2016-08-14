@@ -3,8 +3,6 @@
 #include <iostream>
 #include <type_traits>
 
-extern void* enabler;
-
 namespace VermeerRender
 {
     class Vector3f
@@ -103,8 +101,29 @@ namespace VermeerRender
             return *this;
         }
 
+		// Vector3f / number
+		template <typename T>
+		inline Vector3f
+		operator/(const T a) const { return Vector3f(x / a, y / a, z / a); }
+
+		// Vector3f /= number
+		template <typename T>
+		inline Vector3f&
+		operator/=(const T a) {
+			x /= a; y /= a; z /= a;
+			return *this;
+		}
+
         #pragma endregion
         
+		// Return squared length of the vector
+		inline float
+		SqLength() { return x * x + y * y + z * z; }
+
+		// Return length of the vector
+		inline float
+		Length() { return sqrt(x * x + y * y + z * z); }
+
         // Zero vector (0, 0, 0)
         static inline Vector3f
         Zero() { return Vector3f(0, 0, 0); }
