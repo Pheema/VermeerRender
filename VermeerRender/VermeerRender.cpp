@@ -3,13 +3,14 @@
 #include <string>
 #include <sstream>
 #include <omp.h>
-#include "Camera.hpp"
-#include "Emission.hpp"
-#include "Lambert.hpp"
-#include "Scene.hpp"
-#include "Sphere.hpp"
-#include "Texture2D.hpp"
-#include "VermeerRender.h"
+#include "camera.hpp"
+#include "emission.hpp"
+#include "lambert.hpp"
+#include "reflection.hpp"
+#include "scene.hpp"
+#include "sphere.hpp"
+#include "texture2D.hpp"
+#include "vermeerRender.h"
 #include "integrator.hpp"
 
 namespace VermeerRender
@@ -30,11 +31,13 @@ namespace VermeerRender
 
 		Sphere sphereLight(Vector3f(0.0f, 1.0f, 0.0f), 0.6f);
 		
+		// ---- Material ----
 		Lambert lambertWhite(Color3f(0.9f, 0.9f, 0.9f));
 		Lambert lambertRed(Color3f(0.9f, 0.0f, 0.0f));
 		Lambert lambertGreen(Color3f(0.0f, 0.9f, 0.0f));
-		
+		Reflection reflectionMat(Color3f(0.9f, 0.1f, 0.1f));
 		Emission emissionMat(Color3f::One());
+
 
 		ceil.SetMaterial(lambertWhite);
 		floor.SetMaterial(lambertWhite);
@@ -43,7 +46,7 @@ namespace VermeerRender
 		rightWall.SetMaterial(lambertRed);
 
 
-		sphereLight.SetMaterial(lambertWhite);
+		sphereLight.SetMaterial(reflectionMat);
 		Texture2D bgTex("./Assets/bgTex.png");
 
 		Scene scene;

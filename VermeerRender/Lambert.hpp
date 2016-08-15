@@ -1,9 +1,9 @@
 ﻿#pragma once
 
-#include "HitInfo.hpp"
-#include "Material.hpp"
-#include "Vector3f.hpp"
-#include "XorShift128.hpp"
+#include "hitInfo.hpp"
+#include "material.hpp"
+#include "vector3f.hpp"
+#include "xorShift128.hpp"
 #include <random>
 #include <cmath>
 
@@ -41,6 +41,6 @@ namespace VermeerRender
         }
 
     private:
-        Color3f m_matColor = Color3f::Zero();
+        Color3f m_matColor = Color3f::One();
     };
 }

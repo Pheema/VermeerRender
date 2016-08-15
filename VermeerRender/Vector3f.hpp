@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include <algorithm>s
+#include <algorithm>
 #include <iostream>
 #include <type_traits>
 
@@ -84,7 +84,7 @@ namespace VermeerRender
         template<typename T>
         typename std::enable_if<std::is_arithmetic<T>::value, Vector3f>::type
         friend inline
-        operator*(const T a, Vector3f& v);
+        operator*(const T a, const Vector3f& v);
 
         #pragma  endregion
 
@@ -157,7 +157,7 @@ namespace VermeerRender
     template<typename T>
     typename std::enable_if<std::is_arithmetic<T>::value, Vector3f>::type
     static inline
-    operator*(T a, Vector3f& v) { return v * a; }
+    operator*(T a, const Vector3f& v) { return v * a; }
 
     // 内積
     static inline float
@@ -173,6 +173,13 @@ namespace VermeerRender
         v.z = v1.x * v2.y - v1.y * v2.x;
         return v;
     }
+
+	// 反射
+	static inline Vector3f
+	Reflect(const Vector3f& vi, const Vector3f& vn)
+	{
+		return vi - 2.0f * Dot(vi, vn) * vn;
+	}
 
     static inline std::ostream&
     operator<<(std::ostream& os, const Vector3f& v)

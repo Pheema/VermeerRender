@@ -1,4 +1,4 @@
-#include "VermeerRender.h"
+#include "vermeerRender.h"
 #include <sstream>
 #include <chrono>
 #include <thread>

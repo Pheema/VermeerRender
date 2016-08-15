@@ -1,7 +1,7 @@
 ﻿#pragma once
 
-#include "Vector3f.hpp"
-#include "GeometricObject.hpp"
+#include "vector3f.hpp"
+#include "geometricObject.hpp"
 
 namespace VermeerRender
 {

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Scene.hpp"
-#include "Vector3f.hpp"
+#include "scene.hpp"
+#include "vector3f.hpp"
 
 namespace VermeerRender
 {

@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "Texture2D.hpp"
+#include "texture2D.hpp"
 
 namespace VermeerRender
 {

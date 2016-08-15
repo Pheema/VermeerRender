@@ -1,9 +1,9 @@
 #pragma once
 
-#include "HitInfo.hpp"
-#include "Material.hpp"
-#include "Vector3f.hpp"
-#include "XorShift128.hpp"
+#include "hitInfo.hpp"
+#include "material.hpp"
+#include "vector3f.hpp"
+#include "xorShift128.hpp"
 
 namespace VermeerRender
 {

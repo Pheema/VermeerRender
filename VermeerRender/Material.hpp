@@ -1,8 +1,8 @@
 ﻿#pragma once
 
-#include "HitInfo.hpp"
-#include "Ray.hpp"
-#include "Vector3f.hpp"
+#include "hitInfo.hpp"
+#include "ray.hpp"
+#include "vector3f.hpp"
 
 namespace VermeerRender
 {

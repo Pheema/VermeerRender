@@ -148,28 +148,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="camera.cpp" />
     <ClCompile Include="integrator.cpp" />
     <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="VermeerRender.cpp" />
+    <ClCompile Include="vermeerRender.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Camera.hpp" />
-    <ClInclude Include="Emission.hpp" />
-    <ClInclude Include="GeometricObject.hpp" />
-    <ClInclude Include="HitInfo.hpp" />
+    <ClInclude Include="camera.hpp" />
+    <ClInclude Include="emission.hpp" />
+    <ClInclude Include="geometricObject.hpp" />
+    <ClInclude Include="hitInfo.hpp" />
     <ClInclude Include="integrator.hpp" />
-    <ClInclude Include="Lambert.hpp" />
+    <ClInclude Include="lambert.hpp" />
     <ClInclude Include="lodepng.h" />
-    <ClInclude Include="Material.hpp" />
-    <ClInclude Include="Ray.hpp" />
-    <ClInclude Include="Scene.hpp" />
-    <ClInclude Include="Sphere.hpp" />
-    <ClInclude Include="Texture2D.hpp" />
-    <ClInclude Include="Vector3f.hpp" />
-    <ClInclude Include="VermeerRender.h" />
-    <ClInclude Include="XorShift128.hpp" />
+    <ClInclude Include="material.hpp" />
+    <ClInclude Include="ray.hpp" />
+    <ClInclude Include="reflection.hpp" />
+    <ClInclude Include="scene.hpp" />
+    <ClInclude Include="sphere.hpp" />
+    <ClInclude Include="texture2D.hpp" />
+    <ClInclude Include="vector3f.hpp" />
+    <ClInclude Include="vermeerRender.h" />
+    <ClInclude Include="xorShift128.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

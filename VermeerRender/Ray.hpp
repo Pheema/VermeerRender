@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "Vector3f.hpp"
+#include "vector3f.hpp"
 
 namespace VermeerRender
 {

@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <vector>
 #include "lodepng.h"
-#include "Vector3f.hpp"
+#include "vector3f.hpp"
 
 
 namespace

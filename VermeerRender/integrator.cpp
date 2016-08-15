@@ -1,9 +1,9 @@
-#include "Emission.hpp"
-#include "HitInfo.hpp"
+#include "emission.hpp"
+#include "hitInfo.hpp"
 #include "integrator.hpp"
-#include "Scene.hpp"
-#include "Ray.hpp"
-#include "Vector3f.hpp"
+#include "scene.hpp"
+#include "ray.hpp"
+#include "vector3f.hpp"
 
 namespace VermeerRender
 {

@@ -1,10 +1,10 @@
 ﻿#pragma once
 
 #include <vector>
-#include "Camera.hpp"
-#include "GeometricObject.hpp"
-#include "Texture2D.hpp"
-#include "Vector3f.hpp"
+#include "camera.hpp"
+#include "geometricObject.hpp"
+#include "texture2D.hpp"
+#include "vector3f.hpp"
 
 namespace VermeerRender
 {
