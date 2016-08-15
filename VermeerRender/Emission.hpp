@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "hitInfo.hpp"
 #include "material.hpp"
@@ -17,8 +17,26 @@ namespace VermeerRender
 		{
 			return m_emissionColor;
 		}
+
+		virtual Color3f
+		Brdf(const Vector3f& inDir, const Vector3f& outDir, const HitInfo& hitInfo) override
+		{
+			// 光源のBrdf()は読まれない前提
+			std::cerr << "Error: EmissionのBrdf()が呼ばれました。" << std::endl;
+			abort();
+			return Color3f::One();
+		}
+
+		virtual float
+		Pdf(const Vector3f& inDir, const Vector3f& outDir, const HitInfo& hitInfo) override
+		{
+			// 光源のPdf()は読まれない前提
+			std::cerr << "Error: EmissionのPdf()が呼ばれました。" << std::endl;
+			abort();
+			return 1.0f;
+		}
 	private:
-		Color3f m_emissionColor = Color3f::One();
+		Color3f m_emissionColor;
 	};
 
 }

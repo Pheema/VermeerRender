@@ -2,6 +2,7 @@
 #include <sstream>
 #include <chrono>
 #include <thread>
+#include "xorShift128.hpp"
 
 int main()
 {

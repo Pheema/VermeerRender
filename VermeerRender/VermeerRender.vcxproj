@@ -156,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.hpp" />
+    <ClInclude Include="constant.hpp" />
     <ClInclude Include="emission.hpp" />
     <ClInclude Include="geometricObject.hpp" />
     <ClInclude Include="hitInfo.hpp" />

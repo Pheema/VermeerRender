@@ -75,6 +75,11 @@ namespace VermeerRender
         inline Vector3f&
         operator*=(const Vector3f& v) { x *= v.x; y *= v.y; z *= v.z; return *this; }
         
+		// Vector3f *= number
+		template <typename T>
+		inline Vector3f&
+		operator*=(const T a) { x *= a; y *= a; z *= a; return *this; }
+
         // Vector3f * number
         template <typename T>
         inline Vector3f
@@ -110,10 +115,7 @@ namespace VermeerRender
 		// Vector3f /= number
 		template <typename T>
 		inline Vector3f&
-		operator/=(const T a) {
-			x /= a; y /= a; z /= a;
-			return *this;
-		}
+		operator/=(const T a) { x /= a; y /= a; z /= a;	return *this; }
 
         #pragma endregion
         

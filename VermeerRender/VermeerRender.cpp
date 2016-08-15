@@ -29,7 +29,7 @@ namespace VermeerRender
 		Sphere rightWall(Vector3f::Right() * (largeR + 1.0f), largeR);
 		Sphere backWall(Vector3f::Forward() * (largeR + 1.0f), largeR);
 
-		Sphere sphereLight(Vector3f(0.0f, 1.0f, 0.0f), 0.6f);
+		Sphere sphereLight(Vector3f(0.0f, 0.5f, 0.0f), 1.0f);
 		
 		// ---- Material ----
 		Lambert lambertWhite(Color3f(0.9f, 0.9f, 0.9f));
@@ -44,21 +44,20 @@ namespace VermeerRender
 		backWall.SetMaterial(lambertWhite);
 		leftWall.SetMaterial(lambertGreen);
 		rightWall.SetMaterial(lambertRed);
-
-
-		sphereLight.SetMaterial(reflectionMat);
+		sphereLight.SetMaterial(emissionMat);
+		
 		Texture2D bgTex("./Assets/bgTex.png");
 
 		Scene scene;
 		// scene.AddGeoObject(ceil);
 		scene.AddGeoObject(floor);
-		/*scene.AddGeoObject(backWall);
+		scene.AddGeoObject(backWall);
 		scene.AddGeoObject(leftWall);
-		scene.AddGeoObject(rightWall);*/
+		scene.AddGeoObject(rightWall);
 
 		scene.AddGeoObject(sphereLight);
-		// scene.SetBGColor(Color3f(0.2f, 0.2f, 0.2f));
-		scene.SetBGTexture(bgTex);
+		scene.SetBGColor(Color3f(0.0f, 0.0f, 0.0f));
+		// scene.SetBGTexture(bgTex);
 
 		const auto startTime = std::chrono::system_clock::now();
 
@@ -68,11 +67,12 @@ namespace VermeerRender
 			for (int i = 0; i < m_renderTexture.Width(); i++)
 			{
 				Color3f pixelColorSum = Color3f::Zero();
-				const int spp = 256;
+				const int spp = 1024;
 				for (int smp = 0; smp < spp; ++smp)
 				{
 					Ray ray = mainCamera.PixelToRay(i, j, m_renderTexture.Width(), m_renderTexture.Height());
-					pixelColorSum += Integrator::PathTracing(scene, &ray);
+					// pixelColorSum += Integrator::PathTracing(scene, &ray);
+					pixelColorSum += Integrator::PathTracingNEE(scene, &ray);
 				}
 				m_renderTexture.SetPixel(i, j, pixelColorSum / spp);
 			}

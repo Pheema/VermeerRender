@@ -50,5 +50,28 @@ namespace VermeerRender
 
             return true;
         }
+
+		virtual Vector3f
+		SampleSurface() override
+		{
+			static XorShift128 xor;
+			std::uniform_real_distribution<float> uniDist(0.0f, 1.0f);
+
+			float phi = 2.0f * M_PI * uniDist(xor);
+			float theta = acos(2.0f * uniDist(xor) - 1.0f);
+
+			Vector3f sampleDir =
+				Vector3f::Right() * sin(theta) * cos(phi) +
+				Vector3f::Up() * cos(theta) +
+				Vector3f::Forward() * sin(theta) * sin(phi);
+
+			return o + r * sampleDir;
+		}
+
+		virtual float
+		Area()
+		{
+			return 4.0f * M_PI * r * r;
+		};
     };
 }

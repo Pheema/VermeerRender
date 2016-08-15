@@ -2,6 +2,7 @@
 
 #include <vector>
 #include "camera.hpp"
+#include "constant.hpp"
 #include "geometricObject.hpp"
 #include "texture2D.hpp"
 #include "vector3f.hpp"
@@ -52,6 +53,13 @@ namespace VermeerRender
             m_geoObjectPtrs.push_back(&obj);
         }
 
+		const std::vector<GeometricObject*>&
+		GetGeoObjectPtrs() const
+		{
+			return m_geoObjectPtrs;
+		}
+
+
         bool
         Intersect(const Ray& ray, HitInfo* hitInfo) const
         {
@@ -60,7 +68,7 @@ namespace VermeerRender
             {
                 HitInfo h;
                 if (geoObjPtr->Intersect(ray, &h) &&
-					(h.length > FLT_EPSILON) &&
+					(h.length > kEpsilon) &&
 					(h.length < hitInfo->length)
 					)
                 {
@@ -68,6 +76,7 @@ namespace VermeerRender
                     *hitInfo = h;
                 }
             }
+			hitInfo->ray = ray;
             return isHit;
         }
 

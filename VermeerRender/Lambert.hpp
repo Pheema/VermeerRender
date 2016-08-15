@@ -24,6 +24,7 @@ namespace VermeerRender
             Vector3f u = Cross(Vector3f::Up(), v).Normalized();
             Vector3f w = Cross(u, v);
 
+			// lambert BRDFに対するImportance sampling
             float phi = 2.0f * M_PI * uniDist(xor);
             float theta = acos(sqrt(uniDist(xor)));
 
@@ -36,9 +37,22 @@ namespace VermeerRender
             rayPtr->dir = reflectionRayDir;
             rayPtr->bounce++;
 			rayPtr->recurrenceProb *= m_matColor.Max();
+			rayPtr->rayType = RayTypes::DIFFUSE;
 
             return m_matColor;
         }
+
+		virtual Color3f
+		Brdf(const Vector3f& inDir, const Vector3f& outDir, const HitInfo& hitInfo) override
+		{
+			return m_matColor * M_1_PI;
+		}
+
+		virtual float
+		Pdf(const Vector3f& inDir, const Vector3f& outDir, const HitInfo& hitInfo) override
+		{
+			return abs(Dot(outDir, hitInfo.normal)) * M_1_PI;
+		};
 
     private:
         Color3f m_matColor = Color3f::One();
