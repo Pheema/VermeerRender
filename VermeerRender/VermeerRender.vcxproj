@@ -169,6 +169,7 @@
     <ClInclude Include="scene.hpp" />
     <ClInclude Include="sphere.hpp" />
     <ClInclude Include="texture2D.hpp" />
+    <ClInclude Include="triangle.hpp" />
     <ClInclude Include="vector3f.hpp" />
     <ClInclude Include="vermeerRender.h" />
     <ClInclude Include="xorShift128.hpp" />

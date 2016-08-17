@@ -15,7 +15,7 @@ namespace VermeerRender
 		virtual Color3f
 		Radiance(Ray* const rayPtr, const HitInfo& hitInfo) override
 		{
-			rayPtr->o = hitInfo.point;
+			rayPtr->o = Dot(hitInfo.ray.dir, hitInfo.normal) < 0 ? hitInfo.normal : -hitInfo.normal;
 			rayPtr->dir = Reflect(rayPtr->dir, hitInfo.normal);
 			rayPtr->bounce++;
 			rayPtr->recurrenceProb *= m_matColor.Max();

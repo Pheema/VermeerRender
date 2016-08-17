@@ -66,8 +66,6 @@ namespace VermeerRender
 			float phi = 2.0f * M_PI * uniDist(xor);
 			float theta = acos(1.0f - (1.0f - r / l) * uniDist(xor));
 
-
-
 			Vector3f sampleDir =
 				u * sin(theta) * cos(phi) +
 				v * cos(theta) +

@@ -50,7 +50,7 @@ namespace VermeerRender
         
         // Vector3f - Vector3f
         inline Vector3f
-        operator-(Vector3f& v) const { return Vector3f(x - v.x, y - v.y, z - v.z); }
+        operator-(const Vector3f& v) const { return Vector3f(x - v.x, y - v.y, z - v.z); }
 
         // Vector3f -= Vector3f
         inline Vector3f&

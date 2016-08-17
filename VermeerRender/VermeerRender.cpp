@@ -10,6 +10,7 @@
 #include "scene.hpp"
 #include "sphere.hpp"
 #include "texture2D.hpp"
+#include "triangle.hpp"
 #include "vermeerRender.h"
 #include "integrator.hpp"
 
@@ -23,39 +24,48 @@ namespace VermeerRender
 		const float largeR = 10.0f;
 		Camera mainCamera(Vector3f(0, 0.0f, 10.0f), Vector3f::Forward());
 
+		// ---- Objects ----
 		Sphere ceil(Vector3f::Up() * (largeR + 1.0f) , largeR);
 		Sphere floor(-Vector3f::Up() * (largeR + 1.0f), largeR);
 		Sphere leftWall(-Vector3f::Right() * (largeR + 1.0f), largeR);
 		Sphere rightWall(Vector3f::Right() * (largeR + 1.0f), largeR);
 		Sphere backWall(Vector3f::Forward() * (largeR + 1.0f), largeR);
-
-		Sphere sphereLight(Vector3f(0.0f, 0.5f, 0.0f), 1.0f);
+		Sphere sphereLight(Vector3f(0.0f, 1.0f, 0.0f), 1.0f);
 		
+		Vertex v0{ Vector3f(-0.5f, -0.5f, 3), Vector3f(0, 0, 0), Vector3f::Zero() };
+		Vertex v1{ Vector3f(0, 0.5f * sqrt(3.0f) - 0.5f, 3), Vector3f(0, 0, 0), Vector3f::Zero() };
+		Vertex v2{ Vector3f(0.5f, -0.5f, 3), Vector3f(0, 0, 0), Vector3f::Zero() };
+
+		Triangle triangle(v0, v1, v2);
+
 		// ---- Material ----
 		Lambert lambertWhite(Color3f(0.9f, 0.9f, 0.9f));
 		Lambert lambertRed(Color3f(0.9f, 0.0f, 0.0f));
 		Lambert lambertGreen(Color3f(0.0f, 0.9f, 0.0f));
+		Lambert lambertBlue(Color3f(0.0f, 0.0f, 0.9f));
 		Reflection reflectionMat(Color3f(0.9f, 0.1f, 0.1f));
 		Emission emissionMat(Color3f::One());
 
 
 		ceil.SetMaterial(lambertWhite);
 		floor.SetMaterial(lambertWhite);
-		backWall.SetMaterial(lambertWhite);
+		backWall.SetMaterial(lambertBlue);
 		leftWall.SetMaterial(lambertGreen);
 		rightWall.SetMaterial(lambertRed);
 		sphereLight.SetMaterial(emissionMat);
+		triangle.SetMaterial(lambertRed);
 		
 		Texture2D bgTex("./Assets/bgTex.png");
 
 		Scene scene;
-		// scene.AddGeoObject(ceil);
+		scene.AddGeoObject(ceil);
 		scene.AddGeoObject(floor);
 		scene.AddGeoObject(backWall);
 		scene.AddGeoObject(leftWall);
 		scene.AddGeoObject(rightWall);
-
 		scene.AddGeoObject(sphereLight);
+		scene.AddGeoObject(triangle);
+		
 		scene.SetBGColor(Color3f(0.0f, 0.0f, 0.0f));
 		// scene.SetBGTexture(bgTex);
 
@@ -67,7 +77,7 @@ namespace VermeerRender
 			for (int i = 0; i < m_renderTexture.Width(); i++)
 			{
 				Color3f pixelColorSum = Color3f::Zero();
-				const int spp = 1024;
+				const int spp = 256;
 				for (int smp = 0; smp < spp; ++smp)
 				{
 					Ray ray = mainCamera.PixelToRay(i, j, m_renderTexture.Width(), m_renderTexture.Height());

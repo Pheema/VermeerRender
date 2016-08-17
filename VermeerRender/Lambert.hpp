@@ -20,7 +20,7 @@ namespace VermeerRender
 			static XorShift128 xor;
             std::uniform_real_distribution<float> uniDist(0.0f, 1.0f);
             
-            Vector3f v = hitInfo.normal;
+			Vector3f v = Dot(hitInfo.ray.dir, hitInfo.normal) < 0 ? hitInfo.normal : -hitInfo.normal;
             Vector3f u = Cross(Vector3f::Up(), v).Normalized();
             Vector3f w = Cross(u, v);
 
