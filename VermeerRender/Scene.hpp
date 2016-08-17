@@ -68,7 +68,6 @@ namespace VermeerRender
             {
                 HitInfo h;
                 if (geoObjPtr->Intersect(ray, &h) &&
-					(h.length > kEpsilon) &&
 					(h.length < hitInfo->length)
 					)
                 {

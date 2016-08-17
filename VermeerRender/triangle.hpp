@@ -61,7 +61,8 @@ namespace VermeerRender
 			if (weightE1 + weightE2 >= 1.0f) return false;
 
 			float l = Dot(vec, crossEdges) * invDet;
-			
+			if (l < 0) return false;
+
 			hitInfo->length = l;
 			hitInfo->point = ray.o + ray.dir * l;
 #if 0
@@ -72,7 +73,7 @@ namespace VermeerRender
 				vertexPtrs[0]->normal;
 #else
 			// Flat shading
-			hitInfo->normal = Cross(e1, e2).Normalized();
+			hitInfo->normal = crossEdges.Normalized();
 #endif
 			hitInfo->hitObjPtr = this;
 			return true;

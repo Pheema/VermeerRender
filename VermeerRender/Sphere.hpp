@@ -78,7 +78,7 @@ namespace VermeerRender
 		SamplingArea(const HitInfo& hitInfo)
 		{
 			float l = (hitInfo.point - o).Length();
-			return 2.0f * M_PI * (1.0f - r / l);
+			return 2.0f * M_PI * r * r * (1.0f - r / l);
 		};
     };
 }

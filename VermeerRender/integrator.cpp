@@ -37,7 +37,7 @@ namespace VermeerRender
 					weight /= rayPtr->recurrenceProb;
 					if (rayPtr->bounce > 16)
 					{
-						rayPtr->recurrenceProb *= 0.001f;
+						rayPtr->recurrenceProb *= 0.5f;
 					}
 				}
 				else
@@ -90,11 +90,13 @@ namespace VermeerRender
 						Vector3f samplePoint = objPtr->SampleSurface(h);
 						Vector3f outRayDir = (samplePoint - h.point).Normalized();
 
-						Ray shadowRay(h.point, outRayDir, RayTypes::SHADOW);
+						Vector3f normal = Dot(h.ray.dir, h.normal) < 0 ? h.normal : -h.normal;
+
+						Ray shadowRay(h.point + kEpsilon * normal, outRayDir, RayTypes::SHADOW);
 
 						HitInfo shadowRayHit;
 						if (scene.Intersect(shadowRay, &shadowRayHit) &&
-							(shadowRayHit.point - samplePoint).Length() < kEpsilon)
+							(shadowRayHit.point - samplePoint).SqLength() < kEpsilon * kEpsilon)
 						{
 							// シャドウレイが光源にヒットした場合
 							// 寄与を加える
@@ -115,7 +117,7 @@ namespace VermeerRender
 					weight /= rayPtr->recurrenceProb;
 					if (rayPtr->bounce > 16)
 					{
-						rayPtr->recurrenceProb *= 0.1f;
+						rayPtr->recurrenceProb *= 0.5f;
 					}
 				}
 				else

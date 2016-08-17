@@ -30,11 +30,11 @@ namespace VermeerRender
 		Sphere leftWall(-Vector3f::Right() * (largeR + 1.0f), largeR);
 		Sphere rightWall(Vector3f::Right() * (largeR + 1.0f), largeR);
 		Sphere backWall(Vector3f::Forward() * (largeR + 1.0f), largeR);
-		Sphere sphereLight(Vector3f(0.0f, 1.0f, 0.0f), 1.0f);
+		Sphere sphereLight(Vector3f(0.0f, 1.0f, 0.0f), 0.8f);
 		
-		Vertex v0{ Vector3f(-0.5f, -0.5f, 3), Vector3f(0, 0, 0), Vector3f::Zero() };
-		Vertex v1{ Vector3f(0, 0.5f * sqrt(3.0f) - 0.5f, 3), Vector3f(0, 0, 0), Vector3f::Zero() };
-		Vertex v2{ Vector3f(0.5f, -0.5f, 3), Vector3f(0, 0, 0), Vector3f::Zero() };
+		Vertex v0{ Vector3f(-1.0f, -0.5f, 1.0f), Vector3f(0, 0, 0), Vector3f::Zero() };
+		Vertex v1{ Vector3f(-1.0f, -0.0f, -1.0f), Vector3f(0, 0, 0), Vector3f::Zero() };
+		Vertex v2{ Vector3f(0.0f, -0.5f, -1.0f), Vector3f(0, 0, 0), Vector3f::Zero() };
 
 		Triangle triangle(v0, v1, v2);
 
@@ -53,12 +53,12 @@ namespace VermeerRender
 		leftWall.SetMaterial(lambertGreen);
 		rightWall.SetMaterial(lambertRed);
 		sphereLight.SetMaterial(emissionMat);
-		triangle.SetMaterial(lambertRed);
+		triangle.SetMaterial(lambertWhite);
 		
 		Texture2D bgTex("./Assets/bgTex.png");
 
 		Scene scene;
-		scene.AddGeoObject(ceil);
+		// scene.AddGeoObject(ceil);
 		scene.AddGeoObject(floor);
 		scene.AddGeoObject(backWall);
 		scene.AddGeoObject(leftWall);
@@ -81,7 +81,7 @@ namespace VermeerRender
 				for (int smp = 0; smp < spp; ++smp)
 				{
 					Ray ray = mainCamera.PixelToRay(i, j, m_renderTexture.Width(), m_renderTexture.Height());
-					// pixelColorSum += Integrator::PathTracing(scene, &ray);
+					//pixelColorSum += Integrator::PathTracing(scene, &ray);
 					pixelColorSum += Integrator::PathTracingNEE(scene, &ray);
 				}
 				m_renderTexture.SetPixel(i, j, pixelColorSum / spp);

@@ -1,3 +1,3 @@
 #pragma once
 
-constexpr float kEpsilon = 1.0e-5;
+constexpr float kEpsilon = 1.0e-4;

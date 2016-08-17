@@ -1,5 +1,6 @@
 ﻿#pragma once
 
+#include "constant.hpp"
 #include "hitInfo.hpp"
 #include "material.hpp"
 #include "vector3f.hpp"
@@ -20,7 +21,9 @@ namespace VermeerRender
 			static XorShift128 xor;
             std::uniform_real_distribution<float> uniDist(0.0f, 1.0f);
             
-			Vector3f v = Dot(hitInfo.ray.dir, hitInfo.normal) < 0 ? hitInfo.normal : -hitInfo.normal;
+			Vector3f normal = Dot(hitInfo.ray.dir, hitInfo.normal) < 0 ? hitInfo.normal : -hitInfo.normal;
+
+			Vector3f v = normal;
             Vector3f u = Cross(Vector3f::Up(), v).Normalized();
             Vector3f w = Cross(u, v);
 
@@ -33,7 +36,7 @@ namespace VermeerRender
                 v * cos(theta) +
                 w * sin(theta) * sin(phi);
 
-            rayPtr->o = hitInfo.point;
+            rayPtr->o = hitInfo.point + kEpsilon * normal;
             rayPtr->dir = reflectionRayDir;
             rayPtr->bounce++;
 			rayPtr->recurrenceProb *= m_matColor.Max();
