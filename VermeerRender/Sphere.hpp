@@ -52,26 +52,35 @@ namespace VermeerRender
         }
 
 		virtual Vector3f
-		SampleSurface() override
+		SampleSurface(const HitInfo& hitInfo) override
 		{
 			static XorShift128 xor;
 			std::uniform_real_distribution<float> uniDist(0.0f, 1.0f);
+			
+			Vector3f v = (hitInfo.point - o).Normalized();
+			Vector3f u = Cross(Vector3f::Up(), v).Normalized();
+			Vector3f w = Cross(u, v);
+
+			float l = (hitInfo.point - o).Length();
 
 			float phi = 2.0f * M_PI * uniDist(xor);
-			float theta = acos(2.0f * uniDist(xor) - 1.0f);
+			float theta = acos(1.0f - (1.0f - r / l) * uniDist(xor));
+
+
 
 			Vector3f sampleDir =
-				Vector3f::Right() * sin(theta) * cos(phi) +
-				Vector3f::Up() * cos(theta) +
-				Vector3f::Forward() * sin(theta) * sin(phi);
+				u * sin(theta) * cos(phi) +
+				v * cos(theta) +
+				w * sin(theta) * sin(phi);
 
 			return o + r * sampleDir;
 		}
 
 		virtual float
-		Area()
+		SamplingArea(const HitInfo& hitInfo)
 		{
-			return 4.0f * M_PI * r * r;
+			float l = (hitInfo.point - o).Length();
+			return 2.0f * M_PI * (1.0f - r / l);
 		};
     };
 }

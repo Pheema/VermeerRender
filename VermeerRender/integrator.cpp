@@ -87,7 +87,7 @@ namespace VermeerRender
 					if (matType == typeid(Emission))
 					{
 						// 光源上の点をランダムにサンプリング
-						Vector3f samplePoint = objPtr->SampleSurface();
+						Vector3f samplePoint = objPtr->SampleSurface(h);
 						Vector3f outRayDir = (samplePoint - h.point).Normalized();
 
 						Ray shadowRay(h.point, outRayDir, RayTypes::SHADOW);
@@ -98,7 +98,7 @@ namespace VermeerRender
 						{
 							// シャドウレイが光源にヒットした場合
 							// 寄与を加える
-							pixelColor += weight * shadowRayHit.hitObjPtr->Area() *
+							pixelColor += weight * shadowRayHit.hitObjPtr->SamplingArea(h) *
 								(shadowRayHit.hitObjPtr->GetMaterial()).Radiance(&shadowRay, shadowRayHit) *
 								(h.hitObjPtr->GetMaterial()).Brdf(h.ray.dir, outRayDir, h) *
 								abs(Dot(shadowRayHit.ray.dir, h.normal)) * abs(Dot(-shadowRayHit.ray.dir, shadowRayHit.normal)) /
@@ -115,7 +115,7 @@ namespace VermeerRender
 					weight /= rayPtr->recurrenceProb;
 					if (rayPtr->bounce > 16)
 					{
-						rayPtr->recurrenceProb *= 0.001f;
+						rayPtr->recurrenceProb *= 0.1f;
 					}
 				}
 				else

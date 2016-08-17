@@ -26,10 +26,10 @@ namespace VermeerRender
 		Intersect(const Ray& ray, HitInfo* const hitinfo) = 0;
 
 		virtual Vector3f
-		SampleSurface() = 0;
+		SampleSurface(const HitInfo& hitInfo) = 0;
 
 		virtual float
-		Area() = 0;
+		SamplingArea(const HitInfo& hitInfo) = 0;
 
     protected:
         Material* m_materialPtr = nullptr;

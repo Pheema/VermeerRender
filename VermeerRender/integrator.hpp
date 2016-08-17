@@ -15,6 +15,6 @@ namespace VermeerRender
 		// Path tracing with "next event estimation"
 		static Vector3f
 		PathTracingNEE(const Scene& scene, Ray* rayPtr);
-	};
+	}; 
 
 }
