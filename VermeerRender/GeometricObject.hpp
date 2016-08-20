@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#include "bounds.hpp"
+
 namespace VermeerRender
 {
 	class Ray;
@@ -10,7 +12,7 @@ namespace VermeerRender
     class GeometricObject
     {
     public:
-        void
+        virtual void
         SetMaterial(Material& material)
         {
             m_materialPtr = &material;
@@ -22,8 +24,17 @@ namespace VermeerRender
 			return *m_materialPtr;
 		}
 
+		const Bounds&
+		GetBounds() const
+		{
+			return bounds;
+		}
+
         virtual bool
 		Intersect(const Ray& ray, HitInfo* const hitinfo) = 0;
+
+		virtual void
+		CalcBound() = 0;
 
 		virtual Vector3f
 		SampleSurface(const HitInfo& hitInfo) = 0;
@@ -32,6 +43,8 @@ namespace VermeerRender
 		SamplingArea(const HitInfo& hitInfo) = 0;
 
     protected:
+		Bounds bounds;
         Material* m_materialPtr = nullptr;
+
     };
 }

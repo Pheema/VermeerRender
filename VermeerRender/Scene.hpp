@@ -4,12 +4,15 @@
 #include "camera.hpp"
 #include "constant.hpp"
 #include "geometricObject.hpp"
+#include "mesh.h"
 #include "texture2D.hpp"
 #include "vector3f.hpp"
 
 namespace VermeerRender
 {
-    class Scene
+	class Accel;
+
+	class Scene
     {
     public:
         Scene() {}
@@ -42,13 +45,23 @@ namespace VermeerRender
 			m_bgTexture = &bgTex;
 		}
 
+		void
+		AddGeoObject(Mesh& mesh)
+		{
+			// TODO: privateにアクセスしているので直す
+			for (auto& triangle : mesh.triangles)
+			{
+				m_geoObjectPtrs.push_back(&triangle);
+			}
+		}
+
         void
         AddGeoObject(GeometricObject& obj)
         {
 			if (&(obj.GetMaterial()) == nullptr)
 			{
 				std::cout << "No material is assigned." << std::endl;
-				exit(1);
+				abort();
 			}
             m_geoObjectPtrs.push_back(&obj);
         }
@@ -68,8 +81,7 @@ namespace VermeerRender
             {
                 HitInfo h;
                 if (geoObjPtr->Intersect(ray, &h) &&
-					(h.length < hitInfo->length)
-					)
+					(h.length < hitInfo->length))
                 {
                     isHit = true;
                     *hitInfo = h;
@@ -78,6 +90,8 @@ namespace VermeerRender
 			hitInfo->ray = ray;
             return isHit;
         }
+
+		Accel* accelPtr;
 
     private:
         std::vector<GeometricObject*> m_geoObjectPtrs;

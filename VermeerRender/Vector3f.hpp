@@ -119,6 +119,16 @@ namespace VermeerRender
 
         #pragma endregion
         
+		inline const float&
+		operator[](int index) const
+		{
+			// TODO: 配列にして要素を保持する
+			if (index == 0) return x;
+			if (index == 1) return y;
+			if (index == 2) return z;
+			abort();
+		}
+
 		// Return the max component of the vector
 		inline float 
 		Max() { return std::max(x, std::max(y, z)); }
@@ -189,6 +199,12 @@ namespace VermeerRender
         os << "(" << v.x << ", " << v.y << ", " << v.z << ")";
         return os;
     }
+
+	static inline Vector3f
+	max(const Vector3f& v, float a)
+	{
+		return Vector3f(std::max(v.x, a), std::max(v.y, a), std::max(v.z, a));
+	}
     
     using Color3f = Vector3f;
 }

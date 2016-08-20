@@ -1,3 +1,4 @@
+#include "accel.hpp"
 #include "emission.hpp"
 #include "hitInfo.hpp"
 #include "integrator.hpp"
@@ -67,7 +68,7 @@ namespace VermeerRender
 			static XorShift128 xor;
 			
 			HitInfo h;
-			if (scene.Intersect(*rayPtr, &h))
+			if (scene.accelPtr->Intersect(*rayPtr, &h))
 			{
 				// 光源に衝突した場合はbreak
 				const std::type_info& hitMatType = typeid(h.hitObjPtr->GetMaterial());
@@ -95,15 +96,17 @@ namespace VermeerRender
 						Ray shadowRay(h.point + kEpsilon * normal, outRayDir, RayTypes::SHADOW);
 
 						HitInfo shadowRayHit;
-						if (scene.Intersect(shadowRay, &shadowRayHit) &&
-							(shadowRayHit.point - samplePoint).SqLength() < kEpsilon * kEpsilon)
+						if (scene.accelPtr->Intersect(shadowRay, &shadowRayHit) &&
+							(shadowRayHit.point - samplePoint).SqLength() < kEpsilon)
 						{
 							// シャドウレイが光源にヒットした場合
 							// 寄与を加える
+
 							pixelColor += weight * shadowRayHit.hitObjPtr->SamplingArea(h) *
 								(shadowRayHit.hitObjPtr->GetMaterial()).Radiance(&shadowRay, shadowRayHit) *
 								(h.hitObjPtr->GetMaterial()).Brdf(h.ray.dir, outRayDir, h) *
-								abs(Dot(shadowRayHit.ray.dir, h.normal)) * abs(Dot(-shadowRayHit.ray.dir, shadowRayHit.normal)) /
+								std::max(Dot(shadowRayHit.ray.dir, normal), 0.0f) * 
+								std::max(Dot(-shadowRayHit.ray.dir, shadowRayHit.normal), 0.0f) /
 								(samplePoint - h.point).SqLength();
 						}
 					}

@@ -18,12 +18,14 @@ int main()
 		auto dt = std::chrono::duration_cast<std::chrono::seconds>(nowTime - startTime);
 		if (dt.count() > kLimitTime) break;
 
-		std::this_thread::sleep_for(std::chrono::seconds(1));
+		std::this_thread::sleep_for(std::chrono::seconds(30));
 
 		std::stringstream filepath;
 		filepath << "./Rendered/rendered" << i << ".png";
 		vr.SaveImage(filepath.str().c_str());
 	}
+	std::cout << "Duration: LimitTime" << std::endl;
+
 	exit(0);
 	return 0;
 }

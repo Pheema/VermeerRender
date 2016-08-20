@@ -28,6 +28,8 @@ namespace VermeerRender
 	public:
 		std::array<const Vertex*, 3> vertexPtrs;
 		
+		Triangle() {}
+
 		Triangle(const Vertex& v0, const Vertex& v1, const Vertex& v2)
 		{
 			vertexPtrs[0] = &v0;
@@ -77,6 +79,17 @@ namespace VermeerRender
 #endif
 			hitInfo->hitObjPtr = this;
 			return true;
+		}
+
+		virtual void
+		CalcBound() override
+		{
+			Bounds b;
+			for (auto& vertexPtr : vertexPtrs)
+			{
+				b.Merge(vertexPtr->pos);
+			}
+			bounds = b;
 		}
 
 		virtual Vector3f

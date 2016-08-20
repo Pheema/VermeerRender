@@ -7,6 +7,8 @@
 #include <algorithm>
 #include <cmath>
 
+#define _EFFICIENTSAMPLING
+
 namespace VermeerRender
 {
     class Sphere : public GeometricObject
@@ -51,12 +53,19 @@ namespace VermeerRender
             return true;
         }
 
+		virtual void
+		CalcBound() override
+		{
+			bounds.vMin = o - r * Vector3f::One();
+			bounds.vMax = o + r * Vector3f::One();
+		}
+
 		virtual Vector3f
 		SampleSurface(const HitInfo& hitInfo) override
 		{
 			static XorShift128 xor;
 			std::uniform_real_distribution<float> uniDist(0.0f, 1.0f);
-			
+#ifdef _EFFICIENTSAMPLING
 			Vector3f v = (hitInfo.point - o).Normalized();
 			Vector3f u = Cross(Vector3f::Up(), v).Normalized();
 			Vector3f w = Cross(u, v);
@@ -70,15 +79,33 @@ namespace VermeerRender
 				u * sin(theta) * cos(phi) +
 				v * cos(theta) +
 				w * sin(theta) * sin(phi);
+#else
+			Vector3f v = (hitInfo.point - o).Normalized();
+			Vector3f u = Cross(Vector3f::Up(), v).Normalized();
+			Vector3f w = Cross(u, v);
 
+			float l = (hitInfo.point - o).Length();
+
+			float phi = 2.0f * M_PI * uniDist(xor);
+			float theta = acos(1.0f - 2.0f * uniDist(xor));
+
+			Vector3f sampleDir =
+				Vector3f::Right() * sin(theta) * cos(phi) +
+				Vector3f::Up() * cos(theta) +
+				Vector3f::Forward() * sin(theta) * sin(phi);
+#endif
 			return o + r * sampleDir;
 		}
 
 		virtual float
 		SamplingArea(const HitInfo& hitInfo)
 		{
+#ifdef _EFFICIENTSAMPLING
 			float l = (hitInfo.point - o).Length();
 			return 2.0f * M_PI * r * r * (1.0f - r / l);
+#else
+			return 4.0f * M_PI * r * r;
+#endif
 		};
     };
 }
