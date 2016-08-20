@@ -1,4 +1,6 @@
 #include "camera.hpp"
+#include "xorShift128.hpp"
+#include <random>
 
 namespace VermeerRender
 {
@@ -19,10 +21,16 @@ namespace VermeerRender
     Ray
     Camera::PixelToRay(int i, int j, int imageWidth, int imageHeight) const
     {
+		// Random
+		static XorShift128 xor;
+		std::uniform_real_distribution<float> uniDist(0.0f, 1.0f);
+
         const float aspect = static_cast<float>(imageWidth) / imageHeight;
-        const float u = (i + 0.5f) / imageWidth - 0.5f;
-        const float v = (j + 0.5f) / imageHeight - 0.5f;
-        
+        const float u = (i + uniDist(xor)) / imageWidth - 0.5f;
+        const float v = (j + uniDist(xor)) / imageHeight - 0.5f;
+		// 0.5f -> uniDist(xor)
+
+
         Vector3f rayDir =
             m_right * u * m_sensorHeight * aspect +
             -m_up * v * m_sensorHeight +

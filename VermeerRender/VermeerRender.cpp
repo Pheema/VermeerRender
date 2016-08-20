@@ -83,7 +83,8 @@ namespace VermeerRender
 		//scene.SetBGTexture(bgTex);
 
 		Scene scene;
-		SceneMaker::Teapot(&scene);
+		//SceneMaker::Teapot(&scene);
+		SceneMaker::Cube(&scene);
 
 		Accel accel;
 		accel.Build(scene);
@@ -101,8 +102,8 @@ namespace VermeerRender
 				for (int smp = 0; smp < spp; ++smp)
 				{
 					Ray ray = scene.GetCamera().PixelToRay(i, j, m_renderTexture.Width(), m_renderTexture.Height());
-					pixelColorSum += Integrator::PathTracing(scene, &ray);
-					//pixelColorSum += Integrator::PathTracingNEE(scene, &ray);
+					// pixelColorSum += Integrator::PathTracing(scene, &ray);
+					pixelColorSum += Integrator::PathTracingNEE(scene, &ray);
 				}
 				m_renderTexture.SetPixel(i, j, pixelColorSum / spp);
 			}

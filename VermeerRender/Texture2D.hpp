@@ -51,6 +51,12 @@ namespace VermeerRender
         const Color3f&
         GetPixel(unsigned i, unsigned j) const
         {
+			// TODO: Loopするかどうかを設定できるようにする
+			if (i < 0) i = 0;
+			if (i > m_width - 1) i = m_width - 1;
+			if (j < 1) j = 1;
+			if (j > m_height) j = m_height;
+
             return m_pixels[i + (m_height - j) * m_width];
         }
 
@@ -60,9 +66,17 @@ namespace VermeerRender
 			float u = 0.5f + 0.5f * M_1_PI * atan2(dir.z, dir.x);
 			float v = 0.5f + 0.5f * M_1_PI * atan2(dir.y, sqrt(dir.x * dir.x + dir.z * dir.z));
 			
-			unsigned i = static_cast<unsigned>(u * m_width);
-			unsigned j = static_cast<unsigned>(v * m_height);
+			unsigned i = static_cast<unsigned>(u * (m_width - 1));
+			unsigned j = static_cast<unsigned>(v * (m_height - 1));
 
+			return GetPixel(i, j);
+		}
+
+		const Color3f&
+		GetPixelUV(float u, float v) const
+		{
+			unsigned i = static_cast<unsigned>(u * (m_width - 1));
+			unsigned j = static_cast<unsigned>(v * (m_height - 1));
 			return GetPixel(i, j);
 		}
 

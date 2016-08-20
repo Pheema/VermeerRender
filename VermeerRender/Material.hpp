@@ -2,7 +2,9 @@
 
 #include "hitInfo.hpp"
 #include "ray.hpp"
+#include "texture2D.hpp"
 #include "vector3f.hpp"
+
 
 namespace VermeerRender
 {

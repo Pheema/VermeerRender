@@ -3,6 +3,7 @@
 #include "constant.hpp"
 #include "hitInfo.hpp"
 #include "material.hpp"
+#include "texture2D.hpp"
 #include "vector3f.hpp"
 #include "xorShift128.hpp"
 #include <random>
@@ -14,6 +15,8 @@ namespace VermeerRender
     {
     public:
         Lambert(const Color3f& color) : m_matColor(color) {}
+
+		Lambert(const Texture2D& colorTex) : m_colorTex(&colorTex) {}
 
         virtual Color3f
         Radiance(Ray* const rayPtr, const HitInfo& hitInfo) override
@@ -42,7 +45,9 @@ namespace VermeerRender
 			rayPtr->recurrenceProb *= m_matColor.Max();
 			rayPtr->rayType = RayTypes::DIFFUSE;
 
-            return m_matColor;
+			return (m_colorTex != nullptr) ?
+				m_colorTex->GetPixelUV(hitInfo.uv.x, hitInfo.uv.y) :
+				m_matColor;
         }
 
 		virtual Color3f
@@ -59,5 +64,6 @@ namespace VermeerRender
 
     private:
         Color3f m_matColor = Color3f::One();
+		const Texture2D* m_colorTex = nullptr;
     };
 }

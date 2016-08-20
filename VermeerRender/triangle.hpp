@@ -67,7 +67,7 @@ namespace VermeerRender
 
 			hitInfo->length = l;
 			hitInfo->point = ray.o + ray.dir * l;
-#if 1
+#if 0
 			// Smooth shading
 			hitInfo->normal =
 				weightE1 * (vertexPtrs[1]->normal - vertexPtrs[0]->normal) +
@@ -77,6 +77,11 @@ namespace VermeerRender
 			// Flat shading
 			hitInfo->normal = crossEdges.Normalized();
 #endif
+			hitInfo->uv =
+				weightE1 * (vertexPtrs[1]->uv - vertexPtrs[0]->uv) +
+				weightE2 * (vertexPtrs[2]->uv - vertexPtrs[0]->uv) +
+				vertexPtrs[0]->uv;
+
 			hitInfo->hitObjPtr = this;
 			return true;
 		}

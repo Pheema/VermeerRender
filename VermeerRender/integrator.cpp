@@ -81,6 +81,9 @@ namespace VermeerRender
 					break;
 				}
 
+				// ---- BRDF sampling ----
+				weight *= (h.hitObjPtr->GetMaterial()).Radiance(rayPtr, h);
+
 				// ---- light sampling ----
 				for (const auto& objPtr : scene.GetGeoObjectPtrs())
 				{
@@ -111,9 +114,6 @@ namespace VermeerRender
 						}
 					}
 				}
-
-				// ---- BRDF sampling ----
-				weight *= (h.hitObjPtr->GetMaterial()).Radiance(rayPtr, h);
 
 				if (uniDist(xor) < rayPtr->recurrenceProb)
 				{
