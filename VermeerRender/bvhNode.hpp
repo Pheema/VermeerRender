@@ -28,8 +28,9 @@ namespace VermeerRender
 		Intersect(const Ray& ray, HitInfo* const hitInfo)
 		{
 			// TODO: ray.dirが軸に平行だと0div
-			Vector3f t0 = (bounds.vMin - ray.o) / ray.dir;
-			Vector3f t1 = (bounds.vMax - ray.o) / ray.dir;
+			Vector3f InvRayDir = Vector3f::One() / ray.dir;
+			Vector3f t0 = (bounds.vMin - ray.o) * InvRayDir;
+			Vector3f t1 = (bounds.vMax - ray.o) * InvRayDir;
 
 			for (int axis = 0; axis < 3; ++axis)
 			{
@@ -47,8 +48,8 @@ namespace VermeerRender
 
 			for (int axis = 0; axis < 3; ++axis)
 			{
-				l = std::min(l, t0[axis]);
-				l = std::min(l, t1[axis]);
+				if (t0[axis] > 0) l = std::min(l, t0[axis]);
+				if (t1[axis] > 0) l = std::min(l, t1[axis]);
 			}
 
 			// レイがBVHより手前のメッシュにあたっている場合は

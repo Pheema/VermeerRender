@@ -17,11 +17,16 @@ namespace VermeerRender
     public:
         Scene() {}
 
-        void
-        SetCamera(Camera& camera)
+        void SetCamera(Camera& camera)
         {
             m_cameraPtr = &camera;
         }
+
+		const Camera&
+		GetCamera() const
+		{
+			return *m_cameraPtr;
+		}
 
         void
         SetBGColor(const Color3f& color)

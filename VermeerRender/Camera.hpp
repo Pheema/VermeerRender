@@ -38,7 +38,7 @@ namespace VermeerRender
 
         // カメラ原点から画素(i, j)に向かう正規化されたベクトルを求める
         Ray
-        PixelToRay(int i, int j, int imageWidth, int imageHeight);
+        PixelToRay(int i, int j, int imageWidth, int imageHeight) const;
 
         // 焦点距離を返す
         float

@@ -142,23 +142,23 @@ namespace VermeerRender
 		Length() { return sqrt(x * x + y * y + z * z); }
 
         // Zero vector (0, 0, 0)
-        static inline Vector3f
+        static const inline Vector3f
         Zero() { return Vector3f(0, 0, 0); }
 
         // vector (1, 1, 1)
-        static inline Vector3f
+        static const inline Vector3f
         One() { return Vector3f(1.0, 1.0f, 1.0f); }
         
         // Right vector (1, 0, 0)
-        static inline Vector3f
+        static const inline Vector3f
         Right() { return Vector3f(1.0f, 0.0f, 0.0f); }
 
         // Up vector (0, 1, 0)
-        static inline Vector3f
+        static const inline Vector3f
         Up() { return Vector3f(0.0f, 1.0f, 0.0f); }
 
         // Forward vector (0, 0, -1)
-        static inline Vector3f
+        static const inline Vector3f
         Forward() { return Vector3f(0.0f, 0.0f, -1.0f); }
 
     private:

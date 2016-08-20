@@ -171,6 +171,7 @@
     <ClInclude Include="ray.hpp" />
     <ClInclude Include="reflection.hpp" />
     <ClInclude Include="scene.hpp" />
+    <ClInclude Include="sceneMaker.h" />
     <ClInclude Include="sphere.hpp" />
     <ClInclude Include="texture2D.hpp" />
     <ClInclude Include="triangle.hpp" />

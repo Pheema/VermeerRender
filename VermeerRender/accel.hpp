@@ -132,6 +132,7 @@ namespace VermeerRender
 							*hitInfo = h;
 						}
 					}
+					hitInfo->ray = ray;
 				}
 				else
 				{

@@ -19,7 +19,7 @@ namespace VermeerRender
 			std::uniform_real_distribution<float> uniDist(0.0f, 1.0f);
 
 			HitInfo h;
-			if (scene.Intersect(*rayPtr, &h))
+			if (scene.accelPtr->Intersect(*rayPtr, &h))
 			{
 				// ŒõŒ¹‚ÉÕ“Ë‚µ‚½ê‡‚Íbreak
 				const std::type_info& hitMatType = typeid(h.hitObjPtr->GetMaterial());

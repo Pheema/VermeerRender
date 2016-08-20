@@ -24,7 +24,7 @@ namespace VermeerRender
 			Vector3f normal = Dot(hitInfo.ray.dir, hitInfo.normal) < 0 ? hitInfo.normal : -hitInfo.normal;
 
 			Vector3f v = normal;
-            Vector3f u = Cross(Vector3f::Up(), v).Normalized();
+            Vector3f u = Cross(Vector3f::Up() + Vector3f(kEpsilon, kEpsilon, kEpsilon), v).Normalized();
             Vector3f w = Cross(u, v);
 
 			// lambert BRDFに対するImportance sampling

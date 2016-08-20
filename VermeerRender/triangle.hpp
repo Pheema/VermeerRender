@@ -17,7 +17,7 @@ namespace VermeerRender
 		Vector3f uv;
 
 		Vertex() :
-			pos(Vector3f(0, 0, 0)), normal(Vector3f(0, 0, 0)), uv(Vector3f(0, 0, 0)) {};
+			pos(Vector3f(0, 0, 0)), normal(Vector3f(0, 1, 0)), uv(Vector3f(0, 0, 0)) {};
 
 		Vertex(const Vector3f& pos, const Vector3f& normal, const Vector3f& uv) :
 			pos(pos), normal(normal), uv(uv) {}
@@ -67,7 +67,7 @@ namespace VermeerRender
 
 			hitInfo->length = l;
 			hitInfo->point = ray.o + ray.dir * l;
-#if 0
+#if 1
 			// Smooth shading
 			hitInfo->normal =
 				weightE1 * (vertexPtrs[1]->normal - vertexPtrs[0]->normal) +

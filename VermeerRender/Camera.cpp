@@ -17,7 +17,7 @@ namespace VermeerRender
     }
 
     Ray
-    Camera::PixelToRay(int i, int j, int imageWidth, int imageHeight)
+    Camera::PixelToRay(int i, int j, int imageWidth, int imageHeight) const
     {
         const float aspect = static_cast<float>(imageWidth) / imageHeight;
         const float u = (i + 0.5f) / imageWidth - 0.5f;
