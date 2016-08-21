@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <queue>
 #include <algorithm>
@@ -32,7 +32,7 @@ namespace VermeerRender
 				m_bvhNodes.emplace_back(rootNode);
 			}
 
-			// ˆ—‚·‚×‚«ƒm[ƒhƒCƒ“ƒfƒbƒNƒX‚ÌƒLƒ…[
+			// å‡¦ç†ã™ã¹ããƒãƒ¼ãƒ‰ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã®ã‚­ãƒ¥ãƒ¼
 			std::queue<int> bvhNodeIndexQueue;
 			bvhNodeIndexQueue.push(0);
 
@@ -51,7 +51,7 @@ namespace VermeerRender
 				int widestAxis = m_bvhNodes[nodeIndex].bounds.GetWidestAxis();
 				float center = m_bvhNodes[nodeIndex].bounds.GetCenter()[widestAxis];
 #if 0
-				// À•W‚Ì’†S‚Å2•ªŠ„‚·‚é
+				// åº§æ¨™ã®ä¸­å¿ƒã§2åˆ†å‰²ã™ã‚‹
 				auto iter0 = std::partition(
 					m_bvhNodes[nodeIndex].m_childObjPtrs.begin(),
 					m_bvhNodes[nodeIndex].m_childObjPtrs.end(),
@@ -108,14 +108,14 @@ namespace VermeerRender
 			std::queue<int> bvhNodeIndexQueue;
 			bvhNodeIndexQueue.push(0);
 			
-			// ---- BVH‚Ìƒgƒ‰ƒo[ƒTƒ‹ ----
+			// ---- BVHã®ãƒˆãƒ©ãƒãƒ¼ã‚µãƒ« ----
 			bool isHit = false;
 			HitInfo h;
 
-			// 2‚Â‚Ìqƒm[ƒh–”‚ÍqƒIƒuƒWƒFƒNƒg‚É‘Î‚µ‚Ä
+			// 2ã¤ã®å­ãƒãƒ¼ãƒ‰åˆã¯å­ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«å¯¾ã—ã¦
 			while (!bvhNodeIndexQueue.empty())
 			{
-				// —tƒm[ƒh‚É‘Î‚µ‚Ä
+				// è‘‰ãƒãƒ¼ãƒ‰ã«å¯¾ã—ã¦
 				int bvhNodeIndex = bvhNodeIndexQueue.front();
 				bvhNodeIndexQueue.pop();
 
@@ -136,11 +136,11 @@ namespace VermeerRender
 				}
 				else
 				{
-					// }ƒm[ƒh‚Ìê‡
+					// æãƒãƒ¼ãƒ‰ã®å ´åˆ
 					for (int childNodeIndex : m_bvhNodes[bvhNodeIndex].m_childNodeIndicies)
 					{
-						// BVH‚Ìè‘O‚Åray‚ªŠù‚ÉƒIƒuƒWƒFƒNƒg‚É“–‚½‚Á‚Ä‚¢‚½‚ç
-						// ˆÈ‰º‚ÌIntersect()‚Ífalse‚Æ‚È‚éi}Š ‚èj
+						// BVHã®æ‰‹å‰ã§rayãŒæ—¢ã«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«å½“ãŸã£ã¦ã„ãŸã‚‰
+						// ä»¥ä¸‹ã®Intersect()ã¯falseã¨ãªã‚‹ï¼ˆæåˆˆã‚Šï¼‰
 						// if (m_bvhNodes[childNodeIndex].Intersect(ray, &h))
 						// {
 							bvhNodeIndexQueue.push(childNodeIndex);

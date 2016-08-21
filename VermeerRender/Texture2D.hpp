@@ -66,8 +66,8 @@ namespace VermeerRender
 			float u = 0.5f + 0.5f * M_1_PI * atan2(dir.z, dir.x);
 			float v = 0.5f + 0.5f * M_1_PI * atan2(dir.y, sqrt(dir.x * dir.x + dir.z * dir.z));
 			
-			unsigned i = static_cast<unsigned>(u * (m_width - 1));
-			unsigned j = static_cast<unsigned>(v * (m_height - 1));
+			unsigned i = static_cast<unsigned>(u * m_width);
+			unsigned j = static_cast<unsigned>(v * m_height);
 
 			return GetPixel(i, j);
 		}
@@ -75,8 +75,8 @@ namespace VermeerRender
 		const Color3f&
 		GetPixelUV(float u, float v) const
 		{
-			unsigned i = static_cast<unsigned>(u * (m_width - 1));
-			unsigned j = static_cast<unsigned>(v * (m_height - 1));
+			unsigned i = static_cast<unsigned>(u * m_width);
+			unsigned j = static_cast<unsigned>(v * m_height);
 			return GetPixel(i, j);
 		}
 
