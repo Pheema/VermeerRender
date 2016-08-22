@@ -1,4 +1,4 @@
-#include "accel.hpp"
+ï»¿#include "accel.hpp"
 #include "emission.hpp"
 #include "hitInfo.hpp"
 #include "integrator.hpp"
@@ -12,7 +12,8 @@ namespace VermeerRender
 	Integrator::PathTracing(const Scene& scene, Ray* rayPtr)
 	{
 		Color3f pixelColor = Color3f::Zero();
-		Color3f weight = Color3f::One();
+		Color3f weight = Color3f::One() * rayPtr->weight;
+		
 		for (;;)
 		{
 			static XorShift128 xor;
@@ -21,7 +22,7 @@ namespace VermeerRender
 			HitInfo h;
 			if (scene.accelPtr->Intersect(*rayPtr, &h))
 			{
-				// ŒõŒ¹‚ÉÕ“Ë‚µ‚½ê‡‚Íbreak
+				// å…‰æºã«è¡çªã—ãŸå ´åˆã¯break
 				const std::type_info& hitMatType = typeid(h.hitObjPtr->GetMaterial());
 				if (hitMatType == typeid(Emission))
 				{
@@ -32,7 +33,7 @@ namespace VermeerRender
 				// ---- BRDF sampling ----
 				weight *= (h.hitObjPtr->GetMaterial()).Radiance(rayPtr, h);
 
-				// ---- ƒƒVƒAƒ“ƒ‹[ƒŒƒbƒg ----
+				// ---- ãƒ­ã‚·ã‚¢ãƒ³ãƒ«ãƒ¼ãƒ¬ãƒƒãƒˆ ----
 				if (uniDist(xor) < rayPtr->recurrenceProb)
 				{
 					weight /= rayPtr->recurrenceProb;
@@ -59,10 +60,10 @@ namespace VermeerRender
 	Integrator::PathTracingNEE(const Scene& scene, Ray* rayPtr)
 	{
 		Color3f pixelColor = Color3f::Zero();
-		Color3f weight = Color3f::One();
+		Color3f weight = Color3f::One() * rayPtr->weight;
 		std::uniform_real_distribution<float> uniDist(0.0f, 1.0f);
 
-		// ƒŒƒC‚ÌƒgƒŒ[ƒX
+		// ãƒ¬ã‚¤ã®ãƒˆãƒ¬ãƒ¼ã‚¹
 		for (;;)
 		{
 			static XorShift128 xor;
@@ -70,7 +71,7 @@ namespace VermeerRender
 			HitInfo h;
 			if (scene.accelPtr->Intersect(*rayPtr, &h))
 			{
-				// ŒõŒ¹‚ÉÕ“Ë‚µ‚½ê‡‚Íbreak
+				// å…‰æºã«è¡çªã—ãŸå ´åˆã¯break
 				const std::type_info& hitMatType = typeid(h.hitObjPtr->GetMaterial());
 				if (hitMatType == typeid(Emission))
 				{
@@ -90,7 +91,7 @@ namespace VermeerRender
 					const std::type_info& matType = typeid(objPtr->GetMaterial());
 					if (matType == typeid(Emission))
 					{
-						// ŒõŒ¹ã‚Ì“_‚ğƒ‰ƒ“ƒ_ƒ€‚ÉƒTƒ“ƒvƒŠƒ“ƒO
+						// å…‰æºä¸Šã®ç‚¹ã‚’ãƒ©ãƒ³ãƒ€ãƒ ã«ã‚µãƒ³ãƒ—ãƒªãƒ³ã‚°
 						Vector3f samplePoint = objPtr->SampleSurface(h);
 						Vector3f outRayDir = (samplePoint - h.point).Normalized();
 
@@ -102,8 +103,8 @@ namespace VermeerRender
 						if (scene.accelPtr->Intersect(shadowRay, &shadowRayHit) &&
 							(shadowRayHit.point - samplePoint).SqLength() < kEpsilon)
 						{
-							// ƒVƒƒƒhƒEƒŒƒC‚ªŒõŒ¹‚Éƒqƒbƒg‚µ‚½ê‡
-							// Šñ—^‚ğ‰Á‚¦‚é
+							// ã‚·ãƒ£ãƒ‰ã‚¦ãƒ¬ã‚¤ãŒå…‰æºã«ãƒ’ãƒƒãƒˆã—ãŸå ´åˆ
+							// å¯„ä¸ã‚’åŠ ãˆã‚‹
 
 							pixelColor += weight * shadowRayHit.hitObjPtr->SamplingArea(h) *
 								(shadowRayHit.hitObjPtr->GetMaterial()).Radiance(&shadowRay, shadowRayHit) *

@@ -164,6 +164,7 @@
     <ClInclude Include="constant.hpp" />
     <ClInclude Include="emission.hpp" />
     <ClInclude Include="geometricObject.hpp" />
+    <ClInclude Include="ggx.hpp" />
     <ClInclude Include="hitInfo.hpp" />
     <ClInclude Include="integrator.hpp" />
     <ClInclude Include="lambert.hpp" />

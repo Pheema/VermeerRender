@@ -25,6 +25,8 @@ namespace VermeerRender
 		float recurrenceProb;
 		RayTypes rayType = RayTypes::CAMERA;
 
+		float weight = 1.0f;
+
         Ray() {};
         Ray(const Vector3f& o, const Vector3f& dir, RayTypes rayType, float ior = 1.0f, unsigned bounce = 0, float recurrenceProb = 1.0f)
             : o(o), dir(dir), rayType(rayType), ior(ior), bounce(bounce), recurrenceProb(recurrenceProb) {};

@@ -29,14 +29,27 @@ namespace VermeerRender
         const float u = (i + uniDist(xor)) / imageWidth - 0.5f;
         const float v = (j + uniDist(xor)) / imageHeight - 0.5f;
 		// 0.5f -> uniDist(xor)
+        Vector3f pointOnSensor =
+			pos +
+            m_right * u * m_hPerf * m_focusDist * aspect +
+            -m_up * v * m_hPerf * m_focusDist +
+            m_forward * m_focusDist;
+        
+		float r = sqrt(uniDist(xor));
+		float theta = 2.0f * M_PI * uniDist(xor);
+		Vector3f pointOnLens =
+			pos +
+			m_right * 0.5f * m_apeture * r * cos(theta) +
+			-m_up * 0.5f * m_apeture * r * sin(theta);
 
+		Vector3f rayDir = (pointOnSensor - pointOnLens).Normalized();
+		
+		float dot = Dot(rayDir, Forward());
+		float weight = dot * dot * m_focusDist * m_focusDist / (pointOnSensor - pointOnLens).SqLength();
 
-        Vector3f rayDir =
-            m_right * u * m_sensorHeight * aspect +
-            -m_up * v * m_sensorHeight +
-            m_forward * m_focalLength;
-        rayDir.Normalize();
+		Ray cameraRay = Ray(pointOnLens, rayDir, RayTypes::CAMERA);
+		cameraRay.weight = weight;
 
-        return Ray(pos, rayDir, RayTypes::CAMERA);
+        return cameraRay;
     }
 }

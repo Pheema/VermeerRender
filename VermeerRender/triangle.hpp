@@ -67,7 +67,7 @@ namespace VermeerRender
 
 			hitInfo->length = l;
 			hitInfo->point = ray.o + ray.dir * l;
-#if 0
+#if 1
 			// Smooth shading
 			hitInfo->normal =
 				weightE1 * (vertexPtrs[1]->normal - vertexPtrs[0]->normal) +

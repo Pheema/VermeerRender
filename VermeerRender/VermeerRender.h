@@ -14,6 +14,7 @@ namespace VermeerRender
 		{
 			m_renderTexture.SaveImage(filepath);
 		}
+		// Texture2D m_renderTexture{ 320, 180 };
 		// Texture2D m_renderTexture{ 640, 360 };
 		Texture2D m_renderTexture{ 1920, 1080 };
 	};
