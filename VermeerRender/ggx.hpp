@@ -17,7 +17,7 @@ namespace VermeerRender
 			m_color(color), m_roughness(roughness) {}
 
 		virtual Color3f
-		Radiance(Ray* const rayPtr, const HitInfo& hitInfo) override
+		Radiance(Ray* const rayPtr, const HitInfo& hitInfo) const override
 		{
 			// Paper
 			// https://www.cs.cornell.edu/~srm/publications/EGSR07-btdf.pdf
@@ -84,7 +84,7 @@ namespace VermeerRender
 		}
 
 		virtual Color3f
-		Brdf(const Vector3f& inDir, const Vector3f& outDir, const HitInfo& hitInfo) override
+		Brdf(const Vector3f& inDir, const Vector3f& outDir, const HitInfo& hitInfo) const override
 		{
 			// TODO
 			std::cerr << "This function is not implemented." << std::endl;
@@ -93,7 +93,7 @@ namespace VermeerRender
 		}
 
 		virtual float
-		Pdf(const Vector3f& inDir, const Vector3f& outDir, const HitInfo& hitInfo) override
+		Pdf(const Vector3f& inDir, const Vector3f& outDir, const HitInfo& hitInfo) const override
 		{
 			// TODO
 			std::cerr << "This function is not implemented." << std::endl;

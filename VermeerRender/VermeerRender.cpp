@@ -3,6 +3,7 @@
 #include <string>
 #include <sstream>
 #include <omp.h>
+#include <fstream>
 #include "accel.hpp"
 #include "camera.hpp"
 #include "mesh.h"
@@ -27,7 +28,8 @@ namespace VermeerRender
 		Scene scene;
 		//SceneMaker::Teapot(&scene);
 		//SceneMaker::Cube(&scene);
-		SceneMaker::PolyWave(&scene);
+		// SceneMaker::PolyWave(&scene);
+		SceneMaker::WallPaperPolyWave(&scene);
 
 		Accel accel;
 		accel.Build(scene);
@@ -41,7 +43,7 @@ namespace VermeerRender
 			for (int i = 0; i < m_renderTexture.Width(); i++)
 			{
 				Color3f pixelColorSum = Color3f::Zero();
-				const int spp = 64;
+				const int spp = 256;
 				for (int smp = 0; smp < spp; ++smp)
 				{
 					Ray ray = scene.GetCamera().PixelToRay(i, j, m_renderTexture.Width(), m_renderTexture.Height());
@@ -60,12 +62,17 @@ namespace VermeerRender
 		}
 
 		std::stringstream filepath;
-		filepath << "./Rendered/rendered_final.png";
+		filepath << "./rendered_final.png";
 		m_renderTexture.SaveImage(filepath.str().c_str());
 		
 		const auto endTime = std::chrono::system_clock::now();
 		const auto duration = std::chrono::duration_cast<std::chrono::seconds>(endTime - startTime);
 		std::cout << "Duration: " << duration.count() << std::endl;
+
+		std::ofstream file("./log.txt");
+		file << "Duration: " << duration.count() << std::endl;
+		file.close();
+
 		exit(0);
 	}
 }

@@ -34,7 +34,7 @@ namespace VermeerRender
 
 			// 処理すべきノードインデックスのキュー
 			std::queue<int> bvhNodeIndexQueue;
-			bvhNodeIndexQueue.push(0);
+			bvhNodeIndexQueue.emplace(0);
 
 			int index = 0;
 			while (!bvhNodeIndexQueue.empty())
@@ -93,8 +93,8 @@ namespace VermeerRender
 				m_bvhNodes[nodeIndex].m_childNodeIndicies[0] = ++index;
 				m_bvhNodes[nodeIndex].m_childNodeIndicies[1] = ++index;
 
-				bvhNodeIndexQueue.push(m_bvhNodes[nodeIndex].m_childNodeIndicies[0]);
-				bvhNodeIndexQueue.push(m_bvhNodes[nodeIndex].m_childNodeIndicies[1]);
+				bvhNodeIndexQueue.emplace(m_bvhNodes[nodeIndex].m_childNodeIndicies[0]);
+				bvhNodeIndexQueue.emplace(m_bvhNodes[nodeIndex].m_childNodeIndicies[1]);
 
 				m_bvhNodes[nodeIndex].m_childObjPtrs.clear();
 				m_bvhNodes[nodeIndex].m_childObjPtrs.shrink_to_fit();
@@ -106,7 +106,7 @@ namespace VermeerRender
 		Intersect(const Ray& ray, HitInfo* const hitInfo)
 		{
 			std::queue<int> bvhNodeIndexQueue;
-			bvhNodeIndexQueue.push(0);
+			bvhNodeIndexQueue.emplace(0);
 			
 			// ---- BVHのトラバーサル ----
 			bool isHit = false;
@@ -143,7 +143,7 @@ namespace VermeerRender
 						// 以下のIntersect()はfalseとなる（枝刈り）
 						// if (m_bvhNodes[childNodeIndex].Intersect(ray, &h))
 						// {
-							bvhNodeIndexQueue.push(childNodeIndex);
+							bvhNodeIndexQueue.emplace(childNodeIndex);
 						// }
 					}
 				}

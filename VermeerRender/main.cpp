@@ -1,4 +1,5 @@
 #include "vermeerRender.h"
+#include <iomanip>
 #include <sstream>
 #include <chrono>
 #include <thread>
@@ -10,7 +11,7 @@ int main()
 	std::thread t(&VermeerRender::VermeerRender::Render, &vr);
 	t.detach();
 	
-	const double kLimitTime = 60 * 5 - 10;
+	const double kLimitTime = 60 * 5 - 1;
 	const auto startTime = std::chrono::system_clock::now();
 	for (int i = 0;;++i)
 	{
@@ -21,9 +22,11 @@ int main()
 		std::this_thread::sleep_for(std::chrono::seconds(30));
 
 		std::stringstream filepath;
-		filepath << "./Rendered/rendered" << i << ".png";
+		filepath << std::setw(3) << std::setfill('0');
+		filepath << "./rendered_" << i << ".png";
 		vr.SaveImage(filepath.str().c_str());
 	}
+	vr.SaveImage("./rendered_exceeded.png");
 	std::cout << "Duration: LimitTime" << std::endl;
 
 	exit(0);

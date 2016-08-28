@@ -171,6 +171,7 @@
     <ClInclude Include="lodepng.h" />
     <ClInclude Include="material.hpp" />
     <ClInclude Include="mesh.h" />
+    <ClInclude Include="mixedMaterial.hpp" />
     <ClInclude Include="ray.hpp" />
     <ClInclude Include="reflection.hpp" />
     <ClInclude Include="scene.hpp" />

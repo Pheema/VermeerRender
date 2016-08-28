@@ -131,7 +131,7 @@ namespace VermeerRender
 
 		// Return the max component of the vector
 		inline float 
-		Max() { return std::max(x, std::max(y, z)); }
+		Max() const { return std::max(x, std::max(y, z)); }
 
 		// Return squared length of the vector
 		inline float

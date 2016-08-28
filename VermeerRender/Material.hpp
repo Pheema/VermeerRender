@@ -16,12 +16,12 @@ namespace VermeerRender
     public:
         // 色と反射ベクトルを返す
         virtual Color3f
-        Radiance(Ray* const rayPtr, const HitInfo& hitInfo) = 0;
+        Radiance(Ray* const rayPtr, const HitInfo& hitInfo) const = 0;
 
 		virtual Color3f
-		Brdf(const Vector3f& inDir, const Vector3f& outDir, const HitInfo& hitInfo) = 0;
+		Brdf(const Vector3f& inDir, const Vector3f& outDir, const HitInfo& hitInfo) const = 0;
 
 		virtual float
-		Pdf(const Vector3f& inDir, const Vector3f& outDir, const HitInfo& hitInfo) = 0;
+		Pdf(const Vector3f& inDir, const Vector3f& outDir, const HitInfo& hitInfo) const = 0;
     };
 }

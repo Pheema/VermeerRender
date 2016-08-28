@@ -13,13 +13,13 @@ namespace VermeerRender
 		Emission(const Color3f& color) : m_emissionColor(color) {};
 
 		virtual Color3f
-		Radiance(Ray* const rayPtr, const HitInfo& hitInfo)
+		Radiance(Ray* const rayPtr, const HitInfo& hitInfo) const override
 		{
 			return m_emissionColor;
 		}
 
 		virtual Color3f
-		Brdf(const Vector3f& inDir, const Vector3f& outDir, const HitInfo& hitInfo) override
+		Brdf(const Vector3f& inDir, const Vector3f& outDir, const HitInfo& hitInfo) const override
 		{
 			// 光源のBrdf()は読まれない前提
 			std::cerr << "Error: EmissionのBrdf()が呼ばれました。" << std::endl;
@@ -28,7 +28,7 @@ namespace VermeerRender
 		}
 
 		virtual float
-		Pdf(const Vector3f& inDir, const Vector3f& outDir, const HitInfo& hitInfo) override
+		Pdf(const Vector3f& inDir, const Vector3f& outDir, const HitInfo& hitInfo) const override
 		{
 			// 光源のPdf()は読まれない前提
 			std::cerr << "Error: EmissionのPdf()が呼ばれました。" << std::endl;

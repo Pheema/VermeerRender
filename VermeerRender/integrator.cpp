@@ -22,6 +22,10 @@ namespace VermeerRender
 			HitInfo h;
 			if (scene.accelPtr->Intersect(*rayPtr, &h))
 			{
+				// TOOD
+				// 擬似Scattering
+				pixelColor += weight * 0.8f * (1.0f - exp(-h.length / 1000.0f));
+
 				// 光源に衝突した場合はbreak
 				const std::type_info& hitMatType = typeid(h.hitObjPtr->GetMaterial());
 				if (hitMatType == typeid(Emission))
@@ -49,6 +53,17 @@ namespace VermeerRender
 			}
 			else
 			{
+				// TODO: BGTextureにうめこむ
+#if 1
+				if (rayPtr->rayType == RayTypes::CAMERA)
+				{
+					Vector3f& dir = rayPtr->dir;
+					float v = 0.5f + 0.3f * M_1_PI * atan2(dir.y, sqrt(dir.x * dir.x + dir.z * dir.z));
+					pixelColor += weight * v;
+					break;
+				}
+#endif
+
 				pixelColor += weight * scene.GetBGColor(rayPtr->dir);
 				break;
 			}

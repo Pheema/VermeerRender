@@ -19,7 +19,7 @@ namespace VermeerRender
 		Lambert(const Texture2D& colorTex) : m_colorTex(&colorTex) {}
 
         virtual Color3f
-        Radiance(Ray* const rayPtr, const HitInfo& hitInfo) override
+        Radiance(Ray* const rayPtr, const HitInfo& hitInfo) const override
         {
 			static XorShift128 xor;
             std::uniform_real_distribution<float> uniDist(0.0f, 1.0f);
@@ -51,13 +51,13 @@ namespace VermeerRender
         }
 
 		virtual Color3f
-		Brdf(const Vector3f& inDir, const Vector3f& outDir, const HitInfo& hitInfo) override
+		Brdf(const Vector3f& inDir, const Vector3f& outDir, const HitInfo& hitInfo) const override
 		{
 			return m_matColor * M_1_PI;
 		}
 
 		virtual float
-		Pdf(const Vector3f& inDir, const Vector3f& outDir, const HitInfo& hitInfo) override
+		Pdf(const Vector3f& inDir, const Vector3f& outDir, const HitInfo& hitInfo) const override
 		{
 			return abs(Dot(outDir, hitInfo.normal)) * M_1_PI;
 		};

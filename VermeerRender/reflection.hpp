@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "hitInfo.hpp"
 #include "material.hpp"
@@ -13,7 +13,7 @@ namespace VermeerRender
 		Reflection(const Color3f& color) : m_matColor(color) {}
 
 		virtual Color3f
-		Radiance(Ray* const rayPtr, const HitInfo& hitInfo) override
+		Radiance(Ray* const rayPtr, const HitInfo& hitInfo) const override
 		{
 			Vector3f normal = Dot(hitInfo.ray.dir, hitInfo.normal) < 0 ? hitInfo.normal : -hitInfo.normal;
 
@@ -27,18 +27,18 @@ namespace VermeerRender
 		}
 
 		virtual Color3f
-		Brdf(const Vector3f& inDir, const Vector3f& outDir, const HitInfo& hitInfo) override
+		Brdf(const Vector3f& inDir, const Vector3f& outDir, const HitInfo& hitInfo) const override
 		{
-			// Š®‘S‹¾–Ê”½ŽË‚ÌBRDF‚Íƒfƒ‹ƒ^ŠÖ”‚Æ‚È‚é‚½‚ß
-			// ‚Ù‚Ú‚·‚×‚Ä‚Ìê‡‚Å0
+			// å®Œå…¨é¡é¢åå°„ã®BRDFã¯ãƒ‡ãƒ«ã‚¿é–¢æ•°ã¨ãªã‚‹ãŸã‚
+			// ã»ã¼ã™ã¹ã¦ã®å ´åˆã§0
 			return Color3f::Zero();
 		}
 
 		virtual float
-		Pdf(const Vector3f& inDir, const Vector3f& outDir, const HitInfo& hitInfo) override
+		Pdf(const Vector3f& inDir, const Vector3f& outDir, const HitInfo& hitInfo) const override
 		{
-			// Š®‘S‹¾–Ê”½ŽË‚ÌBRDF‚Íƒfƒ‹ƒ^ŠÖ”‚Æ‚È‚é‚½‚ß
-			// ‚Ù‚Ú‚·‚×‚Ä‚Ìê‡‚Å0
+			// å®Œå…¨é¡é¢åå°„ã®BRDFã¯ãƒ‡ãƒ«ã‚¿é–¢æ•°ã¨ãªã‚‹ãŸã‚
+			// ã»ã¼ã™ã¹ã¦ã®å ´åˆã§0
 			return 0.0f;
 		};
 

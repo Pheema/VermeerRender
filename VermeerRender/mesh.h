@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "assimp\scene.h"
 #include "assimp\Importer.hpp"
@@ -28,7 +28,7 @@ namespace VermeerRender
 				{
 					const aiMesh* targetMeshPtr = scene->mMeshes[i];
 
-					// ---- À•W‚Ì“Ç‚Ýž‚Ý ----
+					// ---- åº§æ¨™ã®èª­ã¿è¾¼ã¿ ----
 					if (targetMeshPtr->HasPositions())
 					{
 						vertices.resize(targetMeshPtr->mNumVertices);
@@ -42,7 +42,7 @@ namespace VermeerRender
 						}
 					}
 
-					// ---- –@ü‚Ì“Ç‚Ýž‚Ý ----
+					// ---- æ³•ç·šã®èª­ã¿è¾¼ã¿ ----
 					if (targetMeshPtr->HasNormals())
 					{
 						vertices.resize(targetMeshPtr->mNumVertices);
@@ -56,7 +56,7 @@ namespace VermeerRender
 						}
 					}
 
-					// ---- UV‚Ì“Ç‚Ýž‚Ý ----
+					// ---- UVã®èª­ã¿è¾¼ã¿ ----
 					if (targetMeshPtr->HasTextureCoords(0))
 					{
 						vertices.resize(targetMeshPtr->mNumVertices);
@@ -70,7 +70,7 @@ namespace VermeerRender
 						}
 					}
 					
-					// ---- ŽOŠpŒ`‚Ì“o˜^ ----
+					// ---- ä¸‰è§’å½¢ã®ç™»éŒ² ----
 					if (targetMeshPtr->HasFaces())
 					{
 						triangles.resize(targetMeshPtr->mNumFaces);
